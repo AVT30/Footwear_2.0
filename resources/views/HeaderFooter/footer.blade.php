@@ -1,1 +1,1 @@
-<h1 class="bg-orange-900">footer</h1>
+{{-- <h1 class="bg-orange-900">footer</h1> --}}

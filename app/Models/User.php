@@ -25,6 +25,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'prenom',
         'email',
         'password',
     ];
@@ -50,12 +51,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array<int, string>
-     */
-    protected $appends = [
-        'profile_photo_url',
-    ];
+
+    //Un utilisateur peut avoir plusieurs adresses
+    public function adresses()
+    {
+        return $this->hasMany(Adresse::class);
+    }
+
+    //Un utilisateur peut avoir plusieurs avis
+    public function avis()
+    {
+        return $this->hasMany(Avis::class);
+    }
 }

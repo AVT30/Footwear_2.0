@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('id_chaussure')->constrained('chaussures', 'id_chaussure')->onDelete('cascade')->unique();
             //clé étrangère pour les chaussures
             $table->foreignId('id_taille')->constrained('tailles', 'id_taille')->onDelete('cascade')->unique();
-            $table->integer("stock")->default(50);
+            $table->integer("stock")->default(200);
             $table->timestamps();
             //ligne que sert a interdire les doublons (par exemple: ne pas avoir deux fois  la meme chaussure et la meme taille)
             $table->unique(['id_chaussure', 'id_taille']);

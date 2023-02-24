@@ -21,7 +21,7 @@ return new class extends Migration
             //clé étrangère pour les pays
             $table->foreignId('id_pays')->constrained('pays', 'id_pays')->onDelete('cascade');
             //clé étrangère pour les utilisateurs
-            $table->foreignId('id_utilisateur')->constrained('utilisateurs', 'id_utilisateur')->onDelete('cascade');
+            $table->foreignId('id_utilisateur')->constrained('users', 'id_utilisateur')->onDelete('cascade');
             $table->boolean('type_adresse');
             $table->timestamps();
         });

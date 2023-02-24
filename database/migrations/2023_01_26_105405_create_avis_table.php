@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("commentaire");
             $table->integer("etoile")->min(1)->max(5);
             //clé étrangère pour les utilisateurs
-            $table->foreignId('id_utilisateur')->constrained('utilisateurs', 'id_utilisateur')->onDelete('cascade');
+            $table->foreignId('id_utilisateur')->constrained('users', 'id_utilisateur')->onDelete('cascade');
             //clé étrangère pour les chaussures
             $table->foreignId('id_chaussure')->constrained('chaussures', 'id_chaussure')->onDelete('cascade');
             $table->timestamps();

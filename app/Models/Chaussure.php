@@ -6,6 +6,8 @@ use App\Models\Avis;
 use App\Models\Rabais;
 use App\Models\Panier;
 use App\Models\Taille;
+use App\Models\ImageChaussure;
+use App\Models\Commande;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,4 +34,15 @@ class Chaussure extends Model
     {
         return $this->belongsToMany(Taille::class);
     }
+
+    public function imageChaussure()
+    {
+        return $this->hasMany(ImageChaussure::class);
+    }
+
+    public function commande()
+    {
+        return $this->hasMany(Commande::class);
+    }
+
 }

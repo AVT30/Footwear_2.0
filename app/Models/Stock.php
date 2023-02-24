@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Panier;
-use App\Models\Whishlist;
+use App\Models\Chaussure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,9 +16,9 @@ class Stock extends Model
         return $this->belongsToMany(Panier::class);
     }
 
-    public function Whishlist()
+    public function chaussure()
     {
-        return $this->belongsToMany(Whishlist::class);
+        return $this->belongsToMany(Chaussure::class);
     }
 
 }

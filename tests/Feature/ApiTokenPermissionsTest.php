@@ -25,7 +25,7 @@ class ApiTokenPermissionsTest extends TestCase
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
         $token = $user->tokens()->create([
-            'name' => 'Test Token',
+            'nom' => 'Test Token',
             'token' => Str::random(40),
             'abilities' => ['create', 'read'],
         ]);

@@ -1,6 +1,12 @@
-@include('layout.page')
+@extends('layout.page')
 
 @section('content')
-    <h1 class="bg-red-600">bonjour</h1>
+    <div class="">
+        {{-- Carousel --}}
+        @include('carousel.carousel')
+    </div>
+    {{-- Carousel pour les chasssures  --}}
+    <div class="">
+        @include('carousel.chaussures')
+    </div>
 @endsection
-

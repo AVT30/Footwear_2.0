@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('chaussures', function (Blueprint $table) {
             $table->id('id_chaussure');
-            $table->string('modele')->unique();
+            $table->string('modele');
             $table->string('marque');
-            $table->string('type');
+            $table->string('genre');
             $table->string('couleurP');
             $table->string('couleurS');
             $table->double('prix');

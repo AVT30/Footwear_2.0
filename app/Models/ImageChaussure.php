@@ -10,8 +10,12 @@ class ImageChaussure extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id_image_chaussure';
+    protected $fillable = ['imagechaussure'];
+
     public function chaussure()
     {
         return $this->belongsTo(Chaussure::class);
+
     }
 }

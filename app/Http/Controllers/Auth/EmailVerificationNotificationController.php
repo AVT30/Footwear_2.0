@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class EmailVerificationNotificationController extends Controller
 {
     /**
-     * Send a new email verification notification.
+     * Ici il va envoyer un email à l'utilisateur pour confirmer qu'il veut changer de mot de passe.
      */
     public function store(Request $request): RedirectResponse
     {

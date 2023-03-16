@@ -13,7 +13,7 @@ use Illuminate\View\View;
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * ici c'est la vue pour l apage login.
      */
     public function create(): View
     {
@@ -21,7 +21,7 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Handle an incoming authentication request.
+     * création de la session utilisateur.
      */
     public function store(LoginRequest $request): RedirectResponse
     {
@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Destroy an authenticated session.
+     * deconnexion qui dirigera l'utilisateur sur la page d'accueil.
      */
     public function destroy(Request $request): RedirectResponse
     {
@@ -43,6 +43,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/accueil');
     }
 }

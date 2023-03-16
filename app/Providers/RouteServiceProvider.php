@@ -36,6 +36,12 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+                Route::middleware(['web', 'auth'])
+                ->get('/logout', function () {
+                   Auth::logout();
+                   return redirect()->route('login')->with('success','Vous avez été déconnecté avec succès.'); //redirection vers la page de connexion
+               })->name('logout');
         });
     }
 

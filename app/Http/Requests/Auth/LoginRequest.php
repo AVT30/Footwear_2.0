@@ -33,7 +33,7 @@ class LoginRequest extends FormRequest
     }
 
     /**
-     * Attempt to authenticate the request's credentials.
+     * Connexion de l'utilisateur
      *
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -53,7 +53,7 @@ class LoginRequest extends FormRequest
     }
 
     /**
-     * Ensure the login request is not rate limited.
+     * ici on va mettre un temps d'attente si l'utilisateur a echoue trop de fois son mot de passe
      *
      * @throws \Illuminate\Validation\ValidationException
      */

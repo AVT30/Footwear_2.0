@@ -2,61 +2,83 @@
 
 @section('content')
 
-@if($errors->any())
-        @foreach($errors->all() as $error)
-            <div class="alert alert-danger">{{ $error }}</div>
-        @endforeach
-@endif
+    @if($errors->any())
+            @foreach($errors->all() as $error)
+                <div class="alert alert-danger">{{ $error }}</div>
+            @endforeach
+    @endif
 
-<form  method="POST" action="{{ route('chaussures.creation')}}" enctype="multipart/form-data" class="max-w-md mx-auto my-8" >
-    <!-- Pour eviter les failles website (mettre nos input en hiden avec des token)-->
-    @csrf
-    <div class="mb-4">
-      <label for="modele" class="block font-medium text-gray-700 mb-2">Modèle:</label>
-      <input type="text" id="modele" name="modele" class="border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full" required>
-    </div>
-    <div class="mb-4">
-      <label for="marque" class="block font-medium text-gray-700 mb-2">Marque:</label>
-      <input type="text" id="marque" name="marque" class="border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full" required>
-    </div>
-    <div class="mb-4">
-      <label for="genre" class="block font-medium text-gray-700 mb-2">Genre:</label>
-      <select id="genre" name="genre" class="border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full" required>
-        <option value="homme">Homme</option>
-        <option value="femme">Femme</option>
-        <option value="mixte">Mixte</option>
-      </select>
-    </div>
-    <div class="mb-4">
-      <label for="couleurP" class="block font-medium text-gray-700 mb-2">Couleur Primaire:</label>
-      <input type="text" id="couleurP" name="couleurP" class="border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full" required>
-    </div>
-    <div class="mb-4">
-      <label for="couleurS" class="block font-medium text-gray-700 mb-2">Couleur Secondaire:</label>
-      <input type="text" id="couleurS" name="couleurS" class="border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full">
-    </div>
-    <div class="mb-4">
-      <label for="prix" class="block font-medium text-gray-700 mb-2">Prix:</label>
-      <input type="number" id="prix" name="prix" class="border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full" required>
-    </div>
-    <div class="mb-4">
-      <label for="images" class="block font-medium text-gray-700 mb-2">Images:</label>
-      <input type="file" id="images" name="images[]" multiple class="border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full" accept="image/png, image/jpeg" required>
-    </div>
-    <div class="mb-4">
-      <label for="type-chaussures" class="block font-medium text-gray-700 mb-2">Type de Chaussures:</label>
-      <select id="type-chaussures" name="type-chaussures" class="border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full" required>
-        <option value="" disabled selected>Sélectionnez le type de chaussures</option>
-        @foreach($list_type_chaussures as $type_chaussure)
-      <option value="{{ $type_chaussure->id_list_types }}">{{ $type_chaussure->type_chaussures }}</option>
-        @endforeach
-      </select>
-    </div>
-        <div class="text-center">
-          <button type="submit" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50">Créer la paire de chaussures</button>
+<div class="flex justify-center px-6 my-12">
+        <!-- Col -->
+        <div class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
+            <h3 class="pt-4 text-2xl text-center">Creation de chaussure</h3>
+                <form  method="POST" action="{{ route('chaussures.creation')}}" enctype="multipart/form-data" class="max-w-md mx-auto my-8" >
+                    <!-- Pour eviter les failles website (mettre nos input en hiden avec des token)-->
+                    @csrf
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-bold text-gray-700" for="firstName">
+                            Modele
+                        </label>
+                    <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="modele" name="modele" type="text" placeholder="Modele" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-bold text-gray-700" for="firstName">
+                            Marque
+                        </label>
+                    <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="marque" name="marque" type="text" placeholder="Marque" required>
+                    </div>
+                    <div class="mb-4 md:mr-2 md:mb-0">
+                        <label class="block mb-2 text-sm font-bold text-gray-700" for="genre">
+                            Genre
+                        </label>
+                        <select class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="genre" name="genre" placeholder="Genre" required>
+                            <option value="homme">Homme</option>
+                            <option value="femme">Femme</option>
+                            <option value="mixte">Mixte</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-bold text-gray-700" for="firstName">
+                            Couleur Primaire
+                        </label>
+                    <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="couleurP" name="couleurP" type="text" placeholder=" Couleur Primaire" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-bold text-gray-700" for="firstName">
+                            Couleur Secondaire
+                        </label>
+                    <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="couleurS" name="couleurS" type="text" placeholder="Couleur Secondaire">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-bold text-gray-700" for="firstName">
+                            Prix
+                        </label>
+                    <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="prix" name="prix" type="number" placeholder="Prix" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-bold text-gray-700" for="genre">
+                            Type de chaussures
+                        </label>
+                    <select class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="type-chaussures" name="type-chaussures" placeholder="type de chaussures" required>
+                        <option value="" disabled selected>Sélectionnez le type de chaussures</option>
+                        @foreach($list_type_chaussures as $type_chaussure)
+                    <option value="{{ $type_chaussure->id_list_types }}">{{ $type_chaussure->type_chaussures }}</option>
+                        @endforeach
+                    </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="images" class="block font-medium text-gray-700 mb-2">Images</label>
+                        <input type="file" id="images" name="images[]" multiple class="border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full" accept="image/png, image/jpeg" required>
+                        </div>
+                    <hr class="mb-6 border-t" />
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary shadow bg-slate-900 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded">
+                            Créer chaussure
+                          </button>
+                    </div>
+                    </form>
+                </div>
+            </div>
         </div>
-      </form>
-
-
 
 @endsection

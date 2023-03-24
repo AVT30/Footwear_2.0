@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ChaussuresController;
+use App\Http\Controllers\PanierController;
+use App\Http\Controllers\WhislistController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
@@ -34,22 +36,39 @@ Route::post('/creation', [ChaussuresController::class, 'creation'])->name('chaus
 //page pour la création de chaussre
 Route::get('/creation', [ChaussuresController::class, 'creationchaussure'])->name('chaussures.creationchaussure');
 
-//a voir. pour la search bar
+Route::get('/modification', [ChaussuresController::class, 'modification'])->name('modification');
+
+//la search bar
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 
+//page pour une chaussure en particulier en cliquant dessuss
+Route::get('/chaussures/{id}/modifier', [ChaussuresController::class, 'modifier'])->name('chaussures.modifier');
 
+//page pour une chaussure en particulier en cliquant dessuss
+Route::put('/chaussures/{id}/modifierChaussure', [ChaussuresController::class, 'modifierChaussure'])->name('chaussures.modifierChaussure');
 
 //page pour une chaussure en particulier en cliquant dessuss
 Route::get('/chaussures/{id}', [ChaussuresController::class, 'show'])->name('chaussures.show');
 
 
+//code  pour  une page est accessible seulement connecté
+Route::get('/whislist', [WhislistController::class, 'whislist'])->middleware(['auth', 'verified'])->name('whislist');
 
 
-//code en commentaire comme exemple pour si une page est accessible seulement connecté
-// Route::get('/accueil', function () {
-//     return view('accueil');
-// })->middleware(['auth', 'verified'])->name('accueil');
+//page panier
+Route::get('/panier', [PanierController::class, 'panier'])->name('panier');
 
+//ça renvoie a la fonction ajoutwishlist pour ajouter l'article
+Route::get('/whislist/{id}/ajoutwhislist', [WhislistController::class, 'ajoutwhislist'])->middleware(['auth', 'verified'])->name('whislist.ajoutwhislist');
+
+//meme chose que la fonction ajoutwishlist pour ajouter l'article mais pour retirer l'article
+Route::get('/whislist/{id}', [WhislistController::class, 'supprimerwhislist'])->middleware(['auth', 'verified'])->name('whislist.supprimerwhislist');
+
+
+
+
+
+//pour acceder a ces chemins l'utilisateur doit être connecté
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

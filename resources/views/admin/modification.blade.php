@@ -1,14 +1,14 @@
 @extends('layout.page')
 
 @section('content')
-    <h1> Mes chaussures</h1>
+<h1 class="text-red-900 justify-center 	font-weight: 900"> Modification chaussure</h1>
     <div class="p-10 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-5">
         <!-- Première partie: type de chaussure -->
         <div class="col-span-1 hidden lg:block">
           <div class="bg-gray-100 full-grid h-screen">
             @foreach($list_type_chaussures as $type_chaussure)
             <option value="{{ $type_chaussure->id_list_types }}">{{ $type_chaussure->type_chaussures }}</option>
-        @endforeach
+            @endforeach
           </div>
         </div>
 
@@ -17,9 +17,9 @@
             @if ($chaussures->count() > 0)
               @foreach ($chaussures as $chaussure)
                 <div class="relative mx-auto w-80">
-                    <a href="{{ route('chaussures.show', $chaussure->id_chaussure) }}" class="relative inline-block duration-300 ease-in-out transition-transform transform hover:-translate-y-2 w-full">
-                    <div class="shadow p-4 rounded-lg bg-white">
-                            <div class="flex justify-center relative rounded-lg overflow-hidden h-72">
+                    <a href="{{ route('chaussures.modifier', $chaussure->id_chaussure) }}" class="relative inline-block duration-300 ease-in-out transition-transform transform hover:-translate-y-2 w-full">
+                        <div class=" p-4  bg-white shadow w-80">
+                            <div class="flex justify-center relative rounded-lg overflow-hidden h-96 w-72">
                                 <div class="absolute inset-0 flex justify-center items-center ">
                                         @if($chaussure->image)
                                             <img src="{{ asset('storage/images/'.$chaussure->image->image_chaussure) }}" class="object-contain" alt="Image chaussure" >
@@ -45,19 +45,14 @@
                                 {{ $chaussure->marque }}
                               </p>
                             </div>
-                            <div class="grid grid-cols-2">
-                            <div class="flex justify-start">
+                            <div class="grid grid-cols-1">
+                            <div class="flex items-center justify-start">
                                 <p class="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
                                     <span class="text-lg">{{ $chaussure->prix }}</span>
                                     <span class="text-sm uppercase">
                                     CHF
                                     </span>
                                 </p>
-                            </div>
-                            <div class="flex items-center justify-end">
-                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                                    Acheter
-                                  </button>
                             </div>
                             </div>
                           </div>
@@ -68,4 +63,5 @@
                     {{-- page a faire pour dire qu'il n'y pas d'artcile ou rien n'a été trouvé --}}
             @endif
         </div>
+
 @endsection

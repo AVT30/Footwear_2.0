@@ -9,6 +9,8 @@ use App\Models\Taille;
 use App\Models\ImageChaussure;
 use App\Models\Commande;
 use App\Models\TypeChaussure;
+use App\Models\Stock;
+use App\Models\Whishlist;
 use App\Models\listTypeChaussures;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,7 +24,7 @@ class Chaussure extends Model
     //pour indiquer a laravel que je vais remplir ces champs de valeurs
     protected $fillable = ['modele', 'marque', 'genre', 'couleurP', 'couleurS', 'prix'];
 
-    public function imagesChaussures()
+    public function images()
     {
         return $this->hasMany(ImageChaussure::class, 'id_chaussure');
     }
@@ -44,6 +46,11 @@ class Chaussure extends Model
         return $this->hasMany(Avis::class);
     }
 
+    public function wishlists()
+    {
+        return $this->hasMany(Whishlist::class, 'id_chaussure');
+    }
+
     public function rabais()
     {
         return $this->belongsTo(Rabais::class);
@@ -59,6 +66,10 @@ class Chaussure extends Model
         return $this->belongsToMany(Taille::class);
     }
 
+    public function stock()
+    {
+        return $this->hasManyThrough(Stock::class, Taille::class, 'id_chaussure', 'id_taille');
+    }
 
     public function commande()
     {

@@ -7,15 +7,22 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Chaussure;
 use App\Models\listTypeChaussures;
 use App\Models\TypeChaussure;
+use App\Models\Taille;
 use App\Models\ImageChaussure;
+use App\Models\Stock;
 use Illuminate\View\View;
 
 class ChaussuresController extends Controller
 {
     public function chaussures($type)
     {
-        $chaussures = Chaussure::all();
+        $chaussures = Chaussure::join('type_chaussures', 'chaussures.id_chaussure', '=', 'type_chaussures.id_chaussure')
+                    ->join('list_type_chaussures', 'type_chaussures.id_list_types', '=', 'list_type_chaussures.id_list_types')
+                    ->select('chaussures.*', 'list_type_chaussures.type_chaussures')
+                    ->get();
 
+
+         $type_slug = strtolower(str_replace(" ", "-", $type));
 
         //ici une foreach pour afficher l'image de chaque chaussure qui est dans la liste à la vue
         foreach ($chaussures as $chaussure) {
@@ -26,8 +33,8 @@ class ChaussuresController extends Controller
         //pour afficher la page de création de chaussure avec listtypechaussures pour attribuer la type à la chaussure
         $list_type_chaussures = listTypeChaussures::all();
 
-        if (view()->exists('chaussures.' . $type)) {
-            return view('chaussures.'.$type, [
+        if (view()->exists('chaussures.' . $type_slug)) {
+            return view('chaussures.'.$type_slug, [
                 'chaussures' => $chaussures,
                 'list_type_chaussures' => $list_type_chaussures,
             ]);
@@ -42,6 +49,11 @@ class ChaussuresController extends Controller
         $id = $request->id;
 
         $chaussure = Chaussure::findOrFail($id);
+
+        //afficher l'image de chaque chaussure qui est dans la liste à la vue
+            $images = ImageChaussure::where('id_chaussure', $id)->get();
+            $chaussure->image = $images->first();
+
 
         if (view()->exists('chaussures.chaussure.show')) {
             return view('chaussures.chaussure.show', [
@@ -108,8 +120,88 @@ class ChaussuresController extends Controller
         $typeChaussure->id_list_types = $idTypeChaussures;
         $typeChaussure->save();
 
+        //ici on va faire que pour la chaussure, un nombre de 200 paires par taille soit stocké dans la table stock
+        $tailles = Taille::all();
+
+        //foreach pour que pour chaque taille il y ai une création
+        foreach ($tailles as $taille) {
+            $stock = new Stock;
+            $stock->id_taille = $taille->id_taille;
+            $stock->id_chaussure = $idChaussure;
+            $stock->save();
+        }
+
+
         // Redirection vers la page de détails de la chaussure créée
         return redirect()->route('chaussures.show', ['id' => $chaussure->id_chaussure]);
+    }
+
+    public function modification()
+    {
+        $chaussures = Chaussure::all();
+
+
+        //ici une foreach pour afficher l'image de chaque chaussure qui est dans la liste à la vue
+        foreach ($chaussures as $chaussure) {
+            $images = ImageChaussure::where('id_chaussure', $chaussure->id_chaussure)->get();
+            $chaussure->image = $images->first();
+        }
+
+        //pour afficher la page de création de chaussure avec listtypechaussures pour attribuer la type à la chaussure
+        $list_type_chaussures = listTypeChaussures::all();
+
+            return view('admin.modification', [
+                'chaussures' => $chaussures,
+                'list_type_chaussures' => $list_type_chaussures,
+            ]);
+
+    }
+
+    public function modifier(Request $request)
+    {
+        //ici c'est pour afficher une chaussure un particulier si on clique sur sa carte
+        $id = $request->id;
+
+        $chaussure = Chaussure::findOrFail($id);
+
+        //ici une foreach pour afficher l'image de chaque chaussure qui est dans la liste à la vue
+            $images = ImageChaussure::where('id_chaussure', $id)->get();
+            $chaussure->image = $images->first();
+
+
+        if (view()->exists('chaussures.chaussure.modifier')) {
+            return view('chaussures.chaussure.modifier', [
+                'chaussure' => $chaussure,
+            ]);
+        } else {
+            abort(404);
+        }
+    }
+
+    public function modifierChaussure(Request $request)
+    {
+        $id = $request->id;
+        //ici c'est pour afficher une chaussure un particulier si on clique sur sa carte
+        $chaussure = Chaussure::find($id);
+
+        $chaussure->modele = $request->input('modele');
+        $chaussure->marque = $request->input('marque');
+        $chaussure->prix = $request->input('prix');
+        $chaussure->couleurP = $request->input('couleurP');
+        $chaussure->couleurS = $request->input('couleurS');
+        $chaussure->genre = $request->input('genre');
+
+        $chaussure->save();
+
+
+
+        if (view()->exists('chaussures.chaussure.show')) {
+            return view('chaussures.chaussure.show', [
+                'chaussure' => $chaussure,
+            ]);
+        } else {
+            abort(404);
+        }
     }
 
 }

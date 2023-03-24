@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id("id_panier");
             //clé étrangère pour les utilisateurs
             $table->foreignId('id_utilisateur')->constrained('users', 'id_utilisateur')->onDelete('cascade');
-            //clé étrangère pour les stocks de chaussures
-            $table->foreignId('id_stock')->constrained('stocks', 'id_stock')->onDelete('cascade');
+          //clé étrangère pour les chaussures
+          $table->foreignId('id_chaussure')->constrained('chaussures', 'id_chaussure')->onDelete('cascade');
             $table->timestamps();
         });
     }

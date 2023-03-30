@@ -1,11 +1,6 @@
 @extends('layout.page')
 
 @section('content')
-    {{-- <h1>{{ $chaussure->modele }}</h1>
-    <p>Couleur : {{ $chaussure->couleurP }}</p>
-    <p>Prix : {{ $chaussure->prix }}</p>
-    <!-- etc. --> --}}
-
     <div style='background-color:rgba(0, 0, 0, 0)'>
         <div class="container px-5 py-24 mx-auto" style="cursor: auto;">
           <div class="lg:w-4/5 mx-auto flex flex-wrap">
@@ -43,11 +38,11 @@
                 <div class="flex ml-6 items-center">
                   <span class="mr-3">Size</span>
                   <div class="relative">
-                    <select class="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
-                      <option>SM</option>
-                      <option>M</option>
-                      <option>L</option>
-                      <option>XL</option>
+                    <select class="rounded border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base">
+                        <option value="">Taille Chaussure</option>
+                        <?php for ($i = 30; $i <= 52; $i++) { ?>
+                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                        <?php } ?>
                     </select>
                     <span class="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                       <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4" viewBox="0 0 24 24">
@@ -65,20 +60,50 @@
                   </svg>
                 </button>
               </div>
-              <div class="flex py-4">
-                <!-- Component: Rating Card Detailed -->
-                <div class="flex items-center">
+                <div class="col-span-1 hidden lg:block">
+                    <div class="full-grid h-screen">
+                        <div class="ml-8">
+                            <div class=" max-w-xl mx-auto 0">
+                                <ul class="shadow-box">
+                                    <li class="relative border-b border-gray-800" x-data="{selected:null}">
+                                        <button type="button" class="w-full px-8 py-3 text-left" @click="selected !== 1 ? selected = 1 : selected = null">
+                                            <div class="flex items-center justify-between">
+                                                <span class="hover:underline font-bold">
+                                                    Nous voulons votre avis !
+                                                </span>
+                                                <span class="ico-plus"></span>
+                                            </div>
+                                        </button>
+                                        <div class="relative overflow-hidden transition-all max-h-0 duration-700" style="" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
+                                            <div class="px-10">
+                                                <h1>dasda</h1>
+                                            </div>
+                                        </div>
+                                    </li>
 
-                    <div class="dropdown">
-                        <button class="dropdown-toggle bg-gray-100">Dropdown</button>
-                        <ul class="dropdown-menu bg-gray-100">
-                          <li><a href="#">Item 1</a></li>
-                          <li><a href="#">Item 2</a></li>
-                          <li><a href="#">Item 3</a></li>
-                        </ul>
-                      </div>
+                                    <li class="relative border-b border-gray-800" x-data="{selected:null}">
+                                        <button type="button" class="w-full px-8 py-3 text-left" @click="selected !== 2 ? selected = 2 : selected = null">
+                                            <div class="flex items-center justify-between">
+                                                <span class="hover:underline font-bold">
+                                                    Avis
+                                                </span>
+                                                <span class="ico-plus"></span>
+                                            </div>
+                                        </button>
+                                        <div class="relative overflow-hidden transition-all max-h-0 duration-700" style="" x-ref="container2" x-bind:style="selected == 2 ? 'max-height: ' + $refs.container2.scrollHeight + 'px' : ''">
+                                            <div class="px-10">
+                                                <h1>dasda</h1>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-              </div>
+
+
             </div>
           </div>
         </div>

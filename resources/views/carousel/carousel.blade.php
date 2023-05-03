@@ -1,10 +1,11 @@
 {{-- Carousel dans une blade à part pour purifier le code dans la page accueil --}}
-<div class="relative z-10 ">
+<div class="relative z-10 py-10 ">
     <div class="hidden md:block flex-row overflow-hidden z-0">
         <div id="carousel" class="flex flex-no-wrap transition-all duration-500">
-            <img src="images/rabais1.jpg" alt="Image 1" class="w-screen h-64 flex-shrink-0">
+            {{-- <img src="images/rabais1.jpg" alt="Image 1" class="w-screen h-64 flex-shrink-0">
             <img src="images/rabais2.jpg" alt="Image 2" class="w-screen h-64 flex-shrink-0">
-            <img src="images/rabais5.png" alt="Image 3" class="w-screen h-64 flex-shrink-0">
+            <img src="images/rabais5.png" alt="Image 3" class="w-screen h-64 flex-shrink-0"> --}}
+            <img src="images/TEST.PNG" alt="Image 3" class="w-screen h-64 flex-shrink-0">
         </div>
     </div>
 

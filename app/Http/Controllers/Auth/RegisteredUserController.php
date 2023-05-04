@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Validator;
 
 class RegisteredUserController extends Controller
 {
@@ -34,7 +35,10 @@ class RegisteredUserController extends Controller
             'prenom' => ['required', 'string', 'max:50'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'captcha' => ['required', 'captcha']
         ]);
+
+
 
         $user = User::create([
             'genre' => $request->genre,
@@ -50,4 +54,10 @@ class RegisteredUserController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+
+    public function reloadCaptcha() {
+        return response()->json(['captcha' => captcha_img()]);
+    }
+
+
 }

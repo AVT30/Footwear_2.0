@@ -59,8 +59,6 @@ class PanierController extends Controller
         return redirect(route('panier'));
     }
 
-
-
     public function panier()
     {
         $items = Cart::getContent();
@@ -73,4 +71,10 @@ class PanierController extends Controller
         ]);
     }
 
+    public function supprimerArticle($id)
+{
+    Cart::remove($id);
+
+    return redirect()->route('panier');
+}
 }

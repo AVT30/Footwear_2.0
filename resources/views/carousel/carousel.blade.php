@@ -6,6 +6,10 @@
             <img src="images/rabais2.jpg" alt="Image 2" class="w-screen h-64 flex-shrink-0">
             <img src="images/rabais5.png" alt="Image 3" class="w-screen h-64 flex-shrink-0"> --}}
             <img src="images/TEST.PNG" alt="Image 3" class="w-screen h-64 flex-shrink-0">
+            <img src="images/Banner1.png" alt="Image 3" class="w-screen h-64 flex-shrink-0">
+            <img src="images/Banner2.png" alt="Image 3" class="w-screen h-64 flex-shrink-0">
+            <img src="images/Banner3.png" alt="Image 3" class="w-screen h-64 flex-shrink-0">
+
         </div>
     </div>
 

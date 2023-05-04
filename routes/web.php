@@ -7,6 +7,7 @@ use App\Http\Controllers\PanierController;
 use App\Http\Controllers\WhislistController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,6 +63,9 @@ Route::get('/panier', [PanierController::class, 'panier'])->name('panier');
 //page panier
 Route::post('/panier/add/{id}', [PanierController::class, 'add'])->name('panier_add');
 
+//page panier pour supprimer les articles du panier
+Route::get('/panier/supprimer/{id}',[PanierController::class, 'supprimerArticle'])->name('supprimerArticle');
+
 //page checkout
 Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 
@@ -73,6 +77,10 @@ Route::get('/whislist/{id}/ajoutwhislist', [WhislistController::class, 'ajoutwhi
 //meme chose que la fonction ajoutwishlist pour ajouter l'article mais pour retirer l'article
 Route::get('/whislist/{id}', [WhislistController::class, 'supprimerwhislist'])->middleware(['auth', 'verified'])->name('whislist.supprimerwhislist');
 
+//les routes pour le captcha
+Route::get('/contact-form', [RegisteredUserController::class, 'index']);
+Route::post('/captcha-validation', [RegisteredUserController::class, 'capthcaFormValidate']);
+Route::get('/reload-captcha', [RegisteredUserController::class, 'reloadCaptcha']);
 
 
 

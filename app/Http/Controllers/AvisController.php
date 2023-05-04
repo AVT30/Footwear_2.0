@@ -16,11 +16,24 @@ use Illuminate\View\View;
 
 class AvisController extends Controller
 {
-    public function avis()
-    {
-        //retour à la vu search avec ce que l'utilisateur demande
-        return view('avis');
+    public function avis(Request $request)
+{
+    // Validation des champs du formulaire
+    $validatedData = $request->validate([
+    'id_chaussure' => 'required|integer',
+    'message' => 'required|string|max:255',
+    'rating' => 'required|integer|min:1|max:5'
+    ]);
 
-    }
+    $id_chaussure = $request->input('id_chaussure');
+    $rating = $request->input('rating');
+    $message = $request->input('message');
+
+    // Enregistrer l'avis dans la base de données, etc.
+
+    dd($validatedData);
+
+    return redirect()->back()->with('success', 'Merci pour votre avis !');
+}
 
 }

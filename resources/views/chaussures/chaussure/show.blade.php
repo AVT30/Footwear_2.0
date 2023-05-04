@@ -1,19 +1,9 @@
 @extends('layout.page')
-<script>
-    function highlightStar(starNumber) {
-        // Highlight selected star
-        for (let i = 1; i <= starNumber; i++) {
-            document.getElementById('rating' + i).checked = true;
-            document.querySelector(`label[for=rating${i}]`).classList.add('text-yellow-500');
-        }
-
-        // Un-highlight unselected stars
-        for (let i = starNumber + 1; i <= 5; i++) {
-            document.getElementById('rating' + i).checked = false;
-            document.querySelector(`label[for=rating${i}]`).classList.remove('text-yellow-500');
-        }
+<style>
+    select:checked ~ #rating-selected #rating-fill {
+      width: calc(var(--rating) / 5 * 100%);
     }
-</script>
+  </style>
 @section('content')
 
     <div style='background-color:rgba(0, 0, 0, 0)'>
@@ -76,7 +66,7 @@
                                             <button type="button" class="w-full px-8 py-3 text-left" @click="selected !== 1 ? selected = 1 : selected = null">
                                                 <div class="flex items-center justify-between">
                                                     <span class="hover:underline font-bold">
-                                                        Nous voulons votre avis !
+                                                        Postez votre avis concernant cet article
                                                     </span>
                                                     <span class="ico-plus"></span>
                                                 </div>
@@ -84,29 +74,33 @@
                                             <div class="relative overflow-hidden transition-all max-h-0 duration-700" style="" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
                                                 <div class="px-10">
                                                     <div class="max-w-xl mx-auto mt-16 flex w-full flex-col border rounded-lg bg-white p-8">
-                                                        <h2 class="title-font mb-1 text-lg font-medium text-gray-900">Feedback</h2>
-                                                        <p class="mb-5 leading-relaxed text-gray-600">If you had any issues or you liked our product, please share
-                                                            with us!
-                                                        </p>
-                                                        <div class="mb-4">
-                                                            <div class="flex items-center">
-                                                                <label for="rating" class="mr-4">Note:</label>
-                                                                <div class="flex">
-                                                                  <!-- Utilisation d'un tableau pour générer les étoiles dynamiquement -->
-                                                                  @foreach(range(1, 5) as $i)
-                                                                    <input type="radio" name="rating" value="{{ $i }}" id="rating{{ $i }}" class="hidden" />
-                                                                    <label for="rating{{ $i }}" class="text-gray-600 hover:text-yellow-500 cursor-pointer">&#9733;</label>
-                                                                  @endforeach
+                                                        <form action="{{ route('avis', ['id' => $chaussure->id]) }}" method="POST">
+                                                            @csrf
+                                                            <h2 class="title-font mb-1 text-lg font-medium text-gray-900">Feedback</h2>
+                                                            <p class="mb-5 leading-relaxed text-gray-600">Nous voulons votre avis !!! Faites nous savoir ce que vous pensez de cet article</p>
+                                                            <div class="mb-4">
+                                                                <div class="flex items-center">
+                                                                    <label for="rating" class="mr-4">Note:</label>
+                                                                    <div class="flex">
+                                                                    <!-- Utilisation d'un tableau pour générer les étoiles dynamiquement -->
+                                                                    <div class="rating">
+                                                                        <span class="star" data-value="1" name="rating"></span>
+                                                                        <span class="star" data-value="2" name="rating"></span>
+                                                                        <span class="star" data-value="3" name="rating"></span>
+                                                                        <span class="star" data-value="4" name="rating"></span>
+                                                                        <span class="star" data-value="5" name="rating"></span>
+                                                                    </div>
+                                                                    </div>
                                                                 </div>
-                                                              </div>
 
-                                                        </div>
-                                                        <div class="mb-4">
-                                                            <label for="message" class="text-sm leading-7 text-gray-600">Message</label>
-                                                            <textarea id="message" name="message" class="h-32 w-full resize-none rounded border border-gray-300 bg-white py-1 px-3 text-base leading-6 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"></textarea>
-                                                        </div>
-                                                        <button class="rounded border-0 bg-indigo-500 py-2 px-6 text-lg text-white hover:bg-indigo-600 focus:outline-none">Send</button>
-                                                        <p class="mt-3 text-xs text-gray-500">Feel free to connect with us on social media platforms.</p>
+                                                            </div>
+                                                            <div class="mb-4">
+                                                                <label for="message" class="text-sm leading-7 text-gray-600">Message</label>
+                                                                <textarea id="message" name="message" class="h-32 w-full resize-none rounded border border-gray-300 bg-white py-1 px-3 text-base leading-6 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"></textarea>
+                                                            </div>
+                                                            <button class="rounded border-0 bg-indigo-500 py-2 px-6 text-lg text-white hover:bg-indigo-600 focus:outline-none">Poster</button>
+                                                            <p class="mt-3 text-xs text-gray-500">N'hesitez pas à nous contacter sur nos réseaux.</p>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -136,7 +130,84 @@
           </div>
         </div>
     </div>
+    <style>
+        .rating {
+          display: inline-block;
+          font-size: 0;
+        }
 
+        .star {
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          margin: 0 2px;
+          background-color: #ccc;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+
+        .star:hover,
+        .star.active {
+          background-color: #ffc107;
+        }
+      </style>
+    <script>
+            // Sélectionner toutes les étoiles
+            const stars = document.querySelectorAll('.star');
+
+            // Initialiser la note à 0
+            let rating = 0;
+
+            // Ajouter un événement "click" pour chaque étoile
+            stars.forEach((star) => {
+                star.addEventListener('click', () => {
+                    // Mettre à jour la note en fonction de la valeur "data-value" de l'étoile cliquée
+                    rating = star.getAttribute('data-value');
+                    // Mettre à jour l'affichage de la note
+                    updateRating();
+                });
+
+                // Ajouter un événement "mouseover" pour chaque étoile
+                star.addEventListener('mouseover', () => {
+                    // Réinitialiser toutes les étoiles à leur état inactif
+                    resetRating();
+                    // Ajouter la classe "active" à l'étoile survolée
+                    star.classList.add('active');
+                    // Ajouter la classe "active" à toutes les étoiles précédentes
+                    const prevStars = Array.from(star.parentNode.children).slice(0, star.getAttribute('data-value') - 1);
+                    prevStars.forEach((prevStar) => {
+                        prevStar.classList.add('active');
+                    });
+                });
+
+                // Ajouter un événement "mouseout" pour chaque étoile
+                star.addEventListener('mouseout', () => {
+                    // Réinitialiser toutes les étoiles à leur état inactif
+                    resetRating();
+                    // Si une note a été sélectionnée, ajouter la classe "active" aux étoiles sélectionnées
+                    if (rating > 0) {
+                        const selectedStars = Array.from(star.parentNode.children).slice(0, rating);
+                        selectedStars.forEach((selectedStar) => {
+                            selectedStar.classList.add('active');
+                        });
+                    }
+                });
+            });
+
+            // Fonction pour réinitialiser toutes les étoiles à leur état inactif
+            function resetRating() {
+                stars.forEach((star) => {
+                    star.classList.remove('active');
+                });
+            }
+
+            // Fonction pour mettre à jour la note
+            function updateRating() {
+                // Enregistrer la note dans une base de données, envoyer un formulaire, etc.
+                console.log(`Note : ${rating}/5`);
+            }
+
+    </script>
 
 
 @endsection

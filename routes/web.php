@@ -6,6 +6,7 @@ use App\Http\Controllers\ChaussuresController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\WhislistController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\AvisController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
@@ -68,6 +69,9 @@ Route::get('/panier/supprimer/{id}',[PanierController::class, 'supprimerArticle'
 
 //page checkout
 Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+
+//page avis
+Route::post('/avis', [AvisController::class, 'avis'])->name('avis');
 
 
 

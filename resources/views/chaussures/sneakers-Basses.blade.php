@@ -35,9 +35,14 @@
                                         </a>
                                     @endif
                                 </div>
-                              <span class="absolute top-0 left-0 inline-flex mt-3 ml-3 px-3 py-2 rounded-lg z-10 bg-green-600 text-sm font-medium text-white select-none">
-                                En stock
-                              </span>
+                                <span class="absolute top-0 left-0 inline-flex mt-3 ml-3 px-3 py-2 rounded-lg z-10 bg-green-600 text-sm font-medium text-white select-none">
+                                    En stock
+                                  </span>
+                                  @if($chaussure->pourcentage)
+                                    <span class="absolute bottom-0 left-0 inline-flex mb-3 ml-3 px-3 py-2 rounded-lg z-10 bg-red-600 text-sm font-medium text-white select-none">
+                                         -{{ $chaussure->pourcentage}}%
+                                    </span>
+                                @endif
                             </div>
 
                             <div class="mt-4">
@@ -49,14 +54,15 @@
                               </p>
                             </div>
                             <div class="grid grid-cols-1">
-                            <div class="flex items-center justify-start">
-                                <p class="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
-                                    <span class="text-lg">{{ $chaussure->prix }}</span>
-                                    <span class="text-sm uppercase">
-                                    CHF
-                                    </span>
-                                </p>
-                            </div>
+                                <div class="flex items-center justify-start">
+                                    <p class="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
+                                        @if($chaussure->pourcentage)
+                                            <span class="text-lg text-red-600">{{ $chaussure->prix}} CHF <span class="line-through text-gray-500 ">{{ $chaussure->prix / (1 - ($chaussure->pourcentage / 100)) }} CHF</span></span>
+                                        @else
+                                            <span class="text-lg">{{ $chaussure->prix}} CHF</span>
+                                        @endif
+                                    </p>
+                                </div>
                             </div>
                           </div>
                         </a>

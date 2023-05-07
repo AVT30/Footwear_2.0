@@ -10,8 +10,11 @@ class Rabais extends Model
 {
     use HasFactory;
 
-    public function chaussure()
+    protected $fillable = ['id_chaussure', 'rabais', 'expiration_rabais'];
+    // ...
+
+    public function chaussures()
     {
-        return $this->hasMany(Chaussures::class);
+        return $this->belongsToMany(Chaussure::class, 'rabais', 'id_rabais', 'id_chaussure');
     }
 }

@@ -16,6 +16,7 @@ class User extends Authenticatable
 
     protected $primaryKey = 'id_utilisateur';
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -39,6 +40,7 @@ class User extends Authenticatable
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
+        'adresses'
     ];
 
     /**
@@ -52,6 +54,8 @@ class User extends Authenticatable
 
 
     //Un utilisateur peut avoir plusieurs adresses
+
+
     public function adresses()
     {
         return $this->hasMany(Adresse::class);

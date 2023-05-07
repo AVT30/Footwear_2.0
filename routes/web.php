@@ -7,6 +7,7 @@ use App\Http\Controllers\PanierController;
 use App\Http\Controllers\WhislistController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AvisController;
+use App\Http\Controllers\AdresseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,7 @@ Route::post('/creation', [ChaussuresController::class, 'creation'])->name('chaus
 //page pour la création de chaussre
 Route::get('/creation', [ChaussuresController::class, 'creationchaussure'])->name('chaussures.creationchaussure');
 
+//page pour modification
 Route::get('/modification', [ChaussuresController::class, 'modification'])->name('modification');
 
 //la search bar
@@ -47,12 +49,14 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 //page pour une chaussure en particulier en cliquant dessuss
 Route::get('/chaussures/{id}/modifier', [ChaussuresController::class, 'modifier'])->name('chaussures.modifier');
 
-//page pour une chaussure en particulier en cliquant dessuss
-Route::put('/chaussures/{id}/modifierChaussure', [ChaussuresController::class, 'modifierChaussure'])->name('chaussures.modifierChaussure');
-
-//page pour une chaussure en particulier en cliquant dessuss
+// Page pour une chaussure en particulier en cliquant dessus
 Route::get('/chaussures/{id}', [ChaussuresController::class, 'show'])->name('chaussures.show');
 
+// Modifier une chaussure en particulier en cliquant dessus
+Route::put('/chaussures/{id}/modifierChaussure', [ChaussuresController::class, 'modifierChaussure'])->name('chaussures.modifierChaussure');
+
+// supprimer une chaussure en particulier en cliquant dessus
+Route::delete('/chaussures/{id}/supprimer', [ChaussuresController::class, 'destroy'])->name('chaussures.supprimer');
 
 //code  pour  une page est accessible seulement connecté
 Route::get('/whislist', [WhislistController::class, 'whislist'])->middleware(['auth', 'verified'])->name('whislist');
@@ -68,10 +72,25 @@ Route::post('/panier/add/{id}', [PanierController::class, 'add'])->name('panier_
 Route::get('/panier/supprimer/{id}',[PanierController::class, 'supprimerArticle'])->name('supprimerArticle');
 
 //page checkout
-Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 
 //page avis
-Route::post('/avis', [AvisController::class, 'avis'])->name('avis');
+Route::get('/avisuser/{id}', [AvisController::class, 'avisuser'])->name('avisuser');
+
+//page utilisateurs
+Route::get('/utilisateurs', [PanierController::class, 'panier'])->name('panier');
+
+//page adresse
+Route::get('/adresse', [AdresseController::class, 'adresse'])->middleware(['auth', 'verified'])->name('adresse');
+
+//page creation adresse
+Route::post('/creationadresse', [AdresseController::class, 'creationadresse'])->middleware(['auth', 'verified'])->name('creationadresse');
+
+//route pour supprimer l'adresse
+Route::delete('/adresses/{id}',[AdresseController::class, 'destroy'])->name('adresses.destroy');
+
+
+
 
 
 

@@ -67,6 +67,25 @@
                     </select>
                     </div>
                     <div class="mb-4">
+                        <label class="block mb-2 text-sm font-bold text-gray-700" for="rabais">
+                            Rabais
+                        </label>
+                        <select class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="rabais" name="rabais">
+                            <option value="">-- Sélectionnez un rabais --</option>
+                            @for ($i = 5; $i <= 75; $i+=5)
+                                <option value="{{ $i }}">{{ $i }}%</option>
+                            @endfor
+                        </select>
+                    </div>
+                    <div class="mb-4 md:mr-2 md:mb-0">
+                        <label class="block mb-2 text-sm font-bold text-gray-700" for="peix">
+                            Date
+                        </label>
+                        <label for="date">Sélectionner une date :</label>
+                        <input type="date" name="daterabaisexpiration" id="daterabaisexpiration">
+                        <button type="submit">Valider</button>
+                    </div>
+                    <div class="mb-4">
                         <label for="images" class="block font-medium text-gray-700 mb-2">Images</label>
                         <input type="file" id="images" name="images[]" multiple class="border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full" accept="image/png, image/jpeg" required>
                         </div>

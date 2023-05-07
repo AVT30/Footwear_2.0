@@ -20,7 +20,11 @@
                                 <div class="mt-5 sm:mt-0">
                                     <h2 class="text-lg font-bold text-gray-900">{{$item->name}}</h2>
                                     <p class="mt-1 text-xs text-gray-700">Taille chaussure : {{$item->attributes->taille}}</p>
-                                    <p class="mt-1 text-xs text-gray-700">{{$item->price}} CHF</p>
+                                    @if ($item->attributes->prixrabais)
+                                        <p class="mt-1 text-xs text-red-600">{{ $item->attributes->prixrabais }} CHF <p class="mt-1 text-xs line-through text-gray-700">{{ $item->price }} CHF</p></p>
+                                    @else
+                                        <p class="mt-1 text-xs text-gray-700">{{ $item->price }} CHF</p>
+                                    @endif
                                 </div>
                                 <div class="mt-4 flex justify-between im sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                                     <div class="flex items-center border-gray-100">
@@ -34,10 +38,6 @@
                                         <span class="text-lg font-bold leading-none">+</span>
                                         </button>
                                     </div>
-                                    {{-- petit calcul pour la somme final du panier --}}
-                                    @php
-                                        $total += $item->price * $item->quantity;
-                                    @endphp
                                     <div class="flex justify-end">
                                         <a href="{{ route('supprimerArticle', ['id' => $item->id]) }}">
                                             <svg
@@ -77,11 +77,11 @@
                     <div class="flex justify-between">
                         <p class="text-lg font-bold">Total</p>
                     <div class="">
-                            <p class="mb-1 text-lg font-bold">{{ $total }} CHF</p>
+                            <p class="mb-1 text-lg font-bold">{{ $totalpanier}} CHF</p>
                         <p class="text-sm text-gray-700">including VAT</p>
                     </div>
                     </div>
-                    <a href="{{ route('checkout') }}" class="mt-6 w-96 rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Acheter</a>
+                    <a href="{{ route('adresse') }}" class="mt-6 w-96 rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Acheter</a>
                 </div>
                 </div>
             @else

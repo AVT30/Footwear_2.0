@@ -9,6 +9,8 @@ class Pays extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id_pays';
+
     public function adresses()
     {
         return $this->hasMany(Adresse::class);

@@ -2,15 +2,9 @@
 
 @section('content')
 <h1 class="text-red-900 justify-center 	font-weight: 900"> Modification chaussure</h1>
-    <div class="p-10 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-5">
-        <!-- Première partie: type de chaussure -->
-        <div class="col-span-1 hidden lg:block">
-          <div class="bg-gray-100 full-grid h-screen">
-            @foreach($list_type_chaussures as $type_chaussure)
-            <option value="{{ $type_chaussure->id_list_types }}">{{ $type_chaussure->type_chaussures }}</option>
-            @endforeach
-          </div>
-        </div>
+<div class="p-10 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-5">
+    <!-- Première partie: type de chaussure, ici on va afficher la liste des types de chaussures que nous proposons -->
+    @include('chaussures.filtre')
 
         <!-- Deuxième partie: chaussures -->
         <div class="col-span-4 sm:col-span-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-x-96">
@@ -35,6 +29,11 @@
                               <span class="absolute top-0 left-0 inline-flex mt-3 ml-3 px-3 py-2 rounded-lg z-10 bg-green-600 text-sm font-medium text-white select-none">
                                 En stock
                               </span>
+                              @if($chaussure->pourcentage)
+                                <span class="absolute bottom-0 left-0 inline-flex mb-3 ml-3 px-3 py-2 rounded-lg z-10 bg-red-600 text-sm font-medium text-white select-none">
+                                     -{{ $chaussure->pourcentage}}%
+                                </span>
+                                 @endif
                             </div>
 
                             <div class="mt-4">
@@ -48,10 +47,11 @@
                             <div class="grid grid-cols-1">
                             <div class="flex items-center justify-start">
                                 <p class="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
-                                    <span class="text-lg">{{ $chaussure->prix }}</span>
-                                    <span class="text-sm uppercase">
-                                    CHF
-                                    </span>
+                                    @if($chaussure->pourcentage)
+                                        <span class="text-lg text-red-600">{{ $chaussure->prix}} CHF <span class="line-through text-gray-500 ">{{ $chaussure->prix / (1 - ($chaussure->pourcentage / 100)) }} CHF</span></span>
+                                    @else
+                                        <span class="text-lg">{{ $chaussure->prix}} CHF</span>
+                                    @endif
                                 </p>
                             </div>
                             </div>

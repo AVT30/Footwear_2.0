@@ -43,7 +43,7 @@ class Chaussure extends Model
 
     public function avis()
     {
-        return $this->hasMany(Avis::class);
+        return $this->hasMany(Avis::class, 'id_chaussure');
     }
 
     public function wishlists()
@@ -53,7 +53,7 @@ class Chaussure extends Model
 
     public function rabais()
     {
-        return $this->belongsTo(Rabais::class);
+        return $this->belongsToMany(Rabais::class, 'rabais', 'id_chaussure', 'id_rabais');
     }
 
     public function panier()

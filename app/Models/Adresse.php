@@ -11,6 +11,13 @@ class Adresse extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id_adresse';
+
+     //pour indiquer a laravel que je vais remplir ces champs de valeurs
+     protected $fillable = ['id_pays', 'adresse', 'code_postal', 'ville'];
+
+
+
     //une adresse appartient a plusieurs utilisateurs (si c'est une famille etc)
     public function user()
     {
@@ -20,6 +27,6 @@ class Adresse extends Model
     //une adresse n'appartient qu'a un seul pays
     public function pays()
     {
-        return $this->belongsTo(pays::class);
+        return $this->belongsTo(Pays::class, 'id_pays');
     }
 }

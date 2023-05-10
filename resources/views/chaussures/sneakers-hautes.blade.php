@@ -9,7 +9,7 @@
         <div class="col-span-4 sm:col-span-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-x-96">
             @if ($chaussures->count() > 0)
               @foreach ($chaussures as $chaussure)
-              @if($chaussure->type_chaussures === 'sneakers Hautes')
+              @if($chaussure->type_chaussures === 'Sneakers hautes')
                 <div class="relative mx-auto w-80">
                     <a href="{{ route('chaussures.show', $chaussure->id_chaussure) }}" class="relative inline-block duration-300 ease-in-out transition-transform transform hover:-translate-y-2 w-full">
                         <div class=" p-4  bg-white shadow w-80">

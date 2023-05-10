@@ -25,7 +25,6 @@ class ChaussuresController extends Controller
 
         //melange les cahssures afin d'afficher une liste de chaussures au hasard
          $type_slug = strtolower(str_replace(" ", "-", $type));
-
         //ici une foreach pour afficher l'image de chaque chaussure qui est dans la liste à la vue
         foreach ($chaussures as $chaussure) {
             $images = ImageChaussure::where('id_chaussure', $chaussure->id_chaussure)->get();
@@ -54,7 +53,6 @@ class ChaussuresController extends Controller
 
         //pour afficher la page de création de chaussure avec listtypechaussures pour attribuer le type à la chaussure
         $list_type_chaussures = listTypeChaussures::all();
-
 
         if (view()->exists('chaussures.' . $type_slug)) {
             return view('chaussures.'.$type_slug, [

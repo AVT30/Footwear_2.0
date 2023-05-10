@@ -29,7 +29,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//pour les pages d'inscription et de connexion
+// Routes d'authentification de Laravel Breeze
 require __DIR__.'/auth.php';
 
 //route pour la page d'accueil

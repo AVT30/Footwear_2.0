@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             PaysTableSeeder::class,
             TaillesTableSeeder::class,
             TypeTableSeeder::class,
+            ImageTableSeeder::class,
         ]);
 
     }

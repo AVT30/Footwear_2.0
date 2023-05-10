@@ -22,7 +22,7 @@
                     <button type="submit" hidden class="px-4 py-2 text-sm text-red-600 hover:bg-gray-100 hover:text-red-800 rounded-lg">Delete</button>
                 </form>
 
-                <form action="{{ route('checkout') }}" method="post">
+                <form action="{{ route('stripe') }}" method="get">
                     @csrf
                     <div class="space-y-4">
                         @foreach ($adresses as $adresse)
@@ -36,7 +36,7 @@
                                     <button type="button" class="px-4 py-2 text-sm text-red-600 hover:bg-gray-100 hover:text-red-800 rounded-lg delete-button" data-id="{{ $adresse->id_adresse }}">Delete</button>
                                 </div>
                             </div>
-                        @endforeach
+                @endforeach
                         <div class="flex justify-center">
                             <button type="submit" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Continuer</button>
                         </div>

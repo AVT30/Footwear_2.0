@@ -55,6 +55,7 @@ class ChaussuresController extends Controller
         //pour afficher la page de création de chaussure avec listtypechaussures pour attribuer le type à la chaussure
         $list_type_chaussures = listTypeChaussures::all();
 
+
         if (view()->exists('chaussures.' . $type_slug)) {
             return view('chaussures.'.$type_slug, [
                 'chaussures' => $chaussures,
@@ -133,6 +134,7 @@ class ChaussuresController extends Controller
             'couleurP' => $request->input('couleurP'),
             'couleurS' => $request->input('couleurS'),
             'prix' => $request->input('prix'),
+
         ]);
 
         $idChaussure = $chaussure->id_chaussure;
@@ -181,7 +183,7 @@ class ChaussuresController extends Controller
 
         //création du rabais
         $pourcentageRabais = $request->input('rabais');
-        $daterabaisexpiration = $request->input('date');
+        $daterabaisexpiration = $request->input('daterabaisexpiration');
 
         // Si le rabais n'est pas vide et est un nombre entre 5 et 75 inclus
         if (!empty($pourcentageRabais) && $pourcentageRabais >= 5 && $pourcentageRabais <= 75) {

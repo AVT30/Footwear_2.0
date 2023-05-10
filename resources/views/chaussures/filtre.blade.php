@@ -18,7 +18,7 @@
                             <div class="px-10">
                                 @foreach($list_type_chaussures as $type_chaussure)
                                 {{-- un if pour trier la liste selon sa catégorie --}}
-                                    @if (strpos($type_chaussure->type_chaussures, 'sneakers') !== false)
+                                    @if (strpos($type_chaussure->type_chaussures, 'Sneakers') !== false)
                                         <a href="{{ route('chaussures.list', ['types' => $type_chaussure->type_chaussures]) }}">
                                             <h1 class="hover:underline py-2 font-bold">{{ $type_chaussure->type_chaussures }}</h1>
                                         </a>
@@ -41,7 +41,7 @@
                             <div class="px-10">
                                 @foreach($list_type_chaussures as $type_chaussure)
                                 {{-- un if pour trier la liste selon sa catégorie --}}
-                                    @if (strpos($type_chaussure->type_chaussures, 'Sport') !== false)
+                                    @if (strpos($type_chaussure->type_chaussures, 'Chaussures') !== false)
                                         <a href="{{ route('chaussures.list', ['types' => $type_chaussure->type_chaussures]) }}">
                                             <h1 class="hover:underline py-2 font-bold">{{ $type_chaussure->type_chaussures }}</h1>
                                         </a>

@@ -12,6 +12,8 @@ use App\Models\Taille;
 use App\Models\ImageChaussure;
 use App\Models\Stock;
 use App\Models\Adresse;
+use Stripe\Stripe;
+use Stripe\Charge;
 use App\Models\Whishlist;
 use Illuminate\View\View;
 use Cart;
@@ -36,6 +38,30 @@ class CheckoutController extends Controller
 
 
 
+    }
+
+    public function processPayment(Request $request)
+    {
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $token = $request->input('stripeToken');
+        $chargeAmount = 5000; // Montant en cents
+
+        try {
+            $charge = Charge::create([
+                'amount' => $chargeAmount,
+                'currency' => 'usd',
+                'description' => 'Example Charge',
+                'source' => $token,
+            ]);
+
+            // Le paiement a été effectué avec succès
+            return redirect()->route('checkout.success')->with('success_message', 'Payment successful.');
+
+        } catch (\Exception $e) {
+            // Il y a eu une erreur lors du paiement
+            return redirect()->back()->withErrors(['error_message' => $e->getMessage()]);
+        }
     }
 
 }

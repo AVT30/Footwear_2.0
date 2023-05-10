@@ -11,6 +11,8 @@ class Commande extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['id_utilisateur', 'id_stock'];
+
     public function user()
     {
         return $this->belongsTo(User::class);

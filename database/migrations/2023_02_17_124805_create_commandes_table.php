@@ -19,6 +19,10 @@ return new class extends Migration
             $table->foreignId('id_utilisateur')->constrained('users', 'id_utilisateur')->onDelete('cascade');
             //clé étrangère pour les stocks de chaussures
             $table->foreignId('id_stock')->constrained('stocks', 'id_stock')->onDelete('cascade');
+            // total payeé
+            $table->decimal('montant', 10, 2);
+            //clé étrangère pour les adresses
+            $table->foreignId('id_adresse')->constrained('adresses', 'id_adresse')->onDelete('cascade');
             $table->timestamps();
         });
     }

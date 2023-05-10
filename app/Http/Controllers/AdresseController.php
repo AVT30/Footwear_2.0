@@ -30,6 +30,7 @@ class AdresseController extends Controller
 
         $adresses = Adresse::where('id_utilisateur',  Auth::id())->get();
 
+
         return view('adresse', ['user' => $user, 'pays' => $pays, 'adresses' => $adresses]);
     }
 
@@ -59,10 +60,9 @@ class AdresseController extends Controller
             }
         }
 
-
-
+        session(['adresse' => $adresse]);
         // Passer les données de l'adresse à la vue
-        return view('checkout', ['adresse' => $adresse,'items' => $items,
+        return view('stripe', ['adresse' => $adresse,'items' => $items,
         'totalpanier' => $totalpanier]);
 
     }

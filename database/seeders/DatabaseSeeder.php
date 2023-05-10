@@ -14,11 +14,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        //ici je défini l'ordre d'execution des seeders pour eviter que les erreurs des tables dependates qui ne créent pas de données si les tables parents n'ont pas enceore faire de seeder
+        $this->call([
+            listTypeChaussure::class,
+            ChaussuresTableSeeder::class,
+            UtilisateursTableSeeder::class,
+            PaysTableSeeder::class,
+            TaillesTableSeeder::class,
+            TypeTableSeeder::class,
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }

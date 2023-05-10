@@ -9,6 +9,8 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AvisController;
 use App\Http\Controllers\AdresseController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -89,9 +91,13 @@ Route::post('/creationadresse', [AdresseController::class, 'creationadresse'])->
 //route pour supprimer l'adresse
 Route::delete('/adresses/{id}',[AdresseController::class, 'destroy'])->name('adresses.destroy');
 
+//pour le payememt
+Route::get('/stripe', [StripeController::class, 'stripe'])->name("stripe");
+Route::post('/stripe', [StripeController::class, 'stripePost'])->name('stripePost');
 
 
-
+//pour la page commandes
+Route::get('/commandes', [CommandeController::class, 'commandes'])->name("commandes");
 
 
 //ça renvoie a la fonction ajoutwishlist pour ajouter l'article

@@ -77,6 +77,9 @@ class PanierController extends Controller
             }
         }
 
+        // Stocker les variables dans une session pour les utiliser après pour le payement
+        session(['totalpanier' => $totalpanier, 'items' => $items]);
+
         return view('panier', [
             'items' => $items,
             'totalpanier' => $totalpanier

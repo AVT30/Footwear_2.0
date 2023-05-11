@@ -36,14 +36,14 @@ class AdresseController extends Controller
 
     public function creationadresse(Request $request) {
 
-        $adresse = new Adresse();
-        $adresse->adresse = $request->input('adresse');
-        $adresse->code_postal = $request->input('npa');
-        $adresse->ville = $request->input('ville');
-        $adresse->type_adresse = 1;
-        $adresse->id_utilisateur = Auth::id();
-        $adresse->id_pays = $request->pays;
-        $adresse->save();
+        $adresses = new Adresse();
+        $adresses->adresse = $request->input('adresse');
+        $adresses->code_postal = $request->input('npa');
+        $adresses->ville = $request->input('ville');
+        $adresses->type_adresse = 1;
+        $adresses->id_utilisateur = Auth::id();
+        $adresses->id_pays = $request->pays;
+        $adresses->save();
 
         $items = Cart::getContent();
         $totalpanier = 0;
@@ -60,9 +60,9 @@ class AdresseController extends Controller
             }
         }
 
-        session(['adresse' => $adresse]);
+        session(['adresses' => $adresses]);
         // Passer les données de l'adresse à la vue
-        return view('stripe', ['adresse' => $adresse,'items' => $items,
+        return view('stripe', ['adresses' => $adresses,'items' => $items,
         'totalpanier' => $totalpanier]);
 
     }

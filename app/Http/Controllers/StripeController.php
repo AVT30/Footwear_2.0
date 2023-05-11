@@ -58,10 +58,8 @@ class StripeController extends Controller
         $adresses = session('adresses');
         $totalpanier = session('totalpanier');
 
-        foreach($adresses as $addresse)
-        {
-            $id_adresse = $addresse->id_adresse;
-        }
+        $id_adresse = $adresses->id_adresse;
+
 
 
         try {
@@ -120,7 +118,7 @@ class StripeController extends Controller
                     'id_utilisateur' => Auth::id(),
                     'id_stock' => $id_stock,
                     'montant' => $totalpanier,
-                    'id_adresse' => $ $id_adresse,
+                    'id_adresse' =>  $id_adresse,
 
                 ]);
             }

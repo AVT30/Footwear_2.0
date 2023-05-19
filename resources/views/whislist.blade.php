@@ -20,7 +20,7 @@
             <div class="flex w-full flex-col px-4 py-4">
             <span class="font-semibold">{{$chaussure->modele}}</span>
             <span class="float-right text-gray-400">42EU - 8.5US</span>
-            <p class="text-lg font-bold">{{$chaussure->prix}} CHF </p>
+            <p class="text-lg font-bold">{{ number_format($chaussure->prix, 2) }} CHF</p>
             <div class="flex space-x-2">
                 <a class="inline-block text-sm text-red-600 align-baseline hover:text-red-900" href="{{ route('whislist.supprimerwhislist', $chaussure->id_chaussure) }}">Supprimer</a>
                 <a class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800" href="./index.html">Ajouter au panier</a>

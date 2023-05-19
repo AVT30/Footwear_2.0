@@ -13,13 +13,18 @@ class Commande extends Model
 
     protected $fillable = ['id_utilisateur', 'id_stock'];
 
-    public function user()
+    public function utilisateur()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'id_utilisateur');
     }
 
     public function stock()
     {
-        return $this->hasMany(Stock::class);
+        return $this->hasMany(Stock::class, 'id_chaussure');
+    }
+
+    public function chaussure()
+    {
+     return $this->belongsTo(Chaussure::class, 'id_chaussure');
     }
 }

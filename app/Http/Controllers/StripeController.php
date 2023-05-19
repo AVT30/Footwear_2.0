@@ -49,85 +49,78 @@ class StripeController extends Controller
 
     }
 
-   //mise en place su moyen de payement
-   public function stripePost(Request $request)
-    {
+public function stripePost(Request $request)
+{
+    // Le montant du panier et les chaussures
+    $items = session('items');
+    $adresses = session('adresses');
+    $totalpanier = session('totalpanier');
 
-        //le montant du panier et les chaussures
-        $items = session('items');
-        $adresses = session('adresses');
-        $totalpanier = session('totalpanier');
 
+    // Un petit if pour savoir s'il a créé une adresse ou s'il a sélectionné une déjà créée
+    $id_adresse = null;
+
+    if ($adresses !== null) {
         $id_adresse = $adresses->id_adresse;
+    } else {
+        // Si la valeur de id_adresse est null, effectuez une autre action
+        $id_adresse = $request->input('id_adresse');
+    }
 
+    try {
+        // Code de paiement avec Stripe
 
+        // Vérification du nombre de commandes existantes
+        $nombreCommandes = DB::table('commandes')->count();
+        // Si le nombre de commandes est 0, la première commande portera le numéro 1
+        if ($nombreCommandes == 0) {
+            $numeroCommande = 1;
+        } else {
+            // Récupération de la dernière commande pour ajouter 1 au numéro de commande
+            $derniereCommande = DB::table('commandes')->orderBy('id_commande', 'desc')->first();
+            $numeroCommande = $derniereCommande->numero_commande + 1;
+        }
 
-        try {
-            $stripe = new \Stripe\StripeClient(
-                //ici je récupèrela ma clé privé qui est dans le env pour effectuer les payement en mode test
-                env('STRIPE_SECRET')
-            );
-            $res = $stripe->tokens->create([
-                //je recupere les infos mis par l'utilisateur
-                'card' => [
-                    'name' => $request->nomcarte,
-                    //juste ici un petit x 100 car stripe n'accepte pas les double(float) donc on doit calculer en centimes
-                    'number' => $request->number,
-                    'exp_month' => $request->exp_month,
-                    'exp_year' => $request->exp_year,
-                    'cvc' => $request->cvc,
-                ],
-            ]);
+        // On récupère chaque chaussure pour la stocker dans notre table commande et mettre à jour le stock
+        foreach ($items as $item) {
+            $user_id = auth()->user()->id;
 
-            \Stripe\stripe::setApiKey(env('STRIPE_SECRET'));
-            //ici  stripe va vérifier si tout correspond
-            $response = $stripe->charges->create([
-                'amount' =>  $totalpanier * 100,
-                'currency' => 'chf',
-                'source' => $res->id,
+            $id_chaussure = $item->id;
+            $price = $item->price;
+            $quantity = $item->quantity;
+            $taille = $item->attributes->taille;
+            $image = $item->attributes->image;
+            $prixrabais = $item->attributes->prixrabais;
 
-            ]);
-
-            //on récupère chaque chaussure pour stocker dans notre table commande et aussi pour enlever du stock le nombre x acheté par le client
-            foreach($items as $item)
-            {
-                $user_id = auth()->user()->id;
-
-                $id_chaussure = $item->id;
-                $price = $item->price;
-                $quantity = $item->quantity;
-                $taille = $item->attributes->taille;
-                $image = $item->attributes->image;
-                $prixrabais = $item->attributes->prixrabais;
-
-                //ici un peut compliqué je sais mais c'est juste pour récupèrer l'id stock pour pouvoir la stocker dans commande
-                $id_stock = DB::table('stocks')
+            // Ici, on récupère l'id_stock pour le stocker dans la table commande
+            $id_stock = DB::table('stocks')
                 ->join('tailles', 'stocks.id_taille', '=', 'tailles.id_taille')
                 ->where('stocks.id_chaussure', $id_chaussure)
                 ->where('tailles.taille', $taille)
                 ->select('stocks.id_stock')
                 ->first();
-                //juste ici je fais ça car si je prends le id_stock de la requete il va me retourner du text et l id ce qui va créer une erreur pour mettre dans le champs id stock de commande
-                $id_stock = $id_stock->id_stock;
+            $id_stock = $id_stock->id_stock;
 
-                //ici on prends la quantité de chaussure acheté pour soustraire au nombre de stock dans la bd
-                DB::table('stocks')->where('id_stock', $id_stock)->decrement('stock', $quantity);
+            // Ici, on met à jour le stock en soustrayant la quantité de chaussures achetées
+            DB::table('stocks')->where('id_stock', $id_stock)->decrement('stock', $quantity);
 
-                //creation commande
-                $commande = Commande::create([
-                    'id_utilisateur' => Auth::id(),
-                    'id_stock' => $id_stock,
-                    'montant' => $totalpanier,
-                    'id_adresse' =>  $id_adresse,
+            // Création de la commande
+            DB::table('commandes')->insert([
+                'id_utilisateur' => Auth::id(),
+                'id_stock' => $id_stock,
+                'montant' => $totalpanier,
+                'id_adresse' => $id_adresse,
+                'id_chaussure' => $id_chaussure,
+                'numero_commande' => $numeroCommande,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
 
-                ]);
-            }
+        $shuffledCollection = Chaussure::all();
 
-
-            $shuffledCollection = Chaussure::all();
-
-            //pour la page recherhece quand l'utilisateur ne trouve pas une chaussure en particulier, cette fonction va tirer des chaussures au hasard à lui montrer pour en faire des "suggestions"
-            $listchaussures = $shuffledCollection->shuffle();
+        // Pour la page recherche, cette fonction va récupérer des chaussures au hasard pour les afficher en suggestions
+        $listchaussures = $shuffledCollection->shuffle();
 
                  //afficher l'image de chaque chaussure qui est dans la liste à la vue
                  foreach ($listchaussures as $chaussure) {

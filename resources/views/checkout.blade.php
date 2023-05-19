@@ -36,10 +36,10 @@
                         </th>
                         <td class="px-6 py-4">
                             @if ($item->attributes->prixrabais)
-                                <span class="text-gray-400 line-through">{{$item->price}} CHF</span>
-                                <span class="text-red-400 "> {{$item->attributes->prixrabais}} CHF</span>
+                                <span class="text-gray-400 line-through">{{ number_format($item->price, 2)}} CHF</span>
+                                <span class="text-red-400 ">{{ number_format($item->attributes->prixrabais, 2)}} CHF</span>
                             @else
-                                {{$item->price}} CHF
+                                {{ number_format($item->price, 2)}} CHF
                             @endif
                         </td>
                         <td class="px-6 py-4">{{$item->quantity}}</td>

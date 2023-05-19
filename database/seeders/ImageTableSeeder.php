@@ -20,13 +20,73 @@ class ImageTableSeeder extends Seeder
         $images = [
             [
                 'id_chaussure' => 1, // L'ID de la première chaussure
-                'image_chaussure' => 'asics.jpg', // Remplacez par le chemin d'accès à l'image spécifique
+                'image_chaussure' => 'AIR MAX 90 WHITE1.jpg', // Remplacez par le chemin d'accès à l'image spécifique
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'id_chaussure' => 2, // L'ID de la deuxième chaussure
-                'image_chaussure' => 'asics2.jpg', // Remplacez par le chemin d'accès à l'image spécifique
+                'image_chaussure' => 'AIR MAX 97 BLACK RED.jpg', // Remplacez par le chemin d'accès à l'image spécifique
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_chaussure' => 3,
+                'image_chaussure' => 'AIR MAX ESSENTIAL 95 BLACK.jpg', // Remplacez par le chemin d'accès à l'image spécifique
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_chaussure' => 4,
+                'image_chaussure' => 'CLASSIC XXI green.webp', // Remplacez par le chemin d'accès à l'image spécifique
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_chaussure' => 5,
+                'image_chaussure' => 'CLASSIC XXI red.webp', // Remplacez par le chemin d'accès à l'image spécifique
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_chaussure' => 6,
+                'image_chaussure' => 'SLIPSTREAM ARCHIVE green white.webp', // Remplacez par le chemin d'accès à l'image spécifique
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_chaussure' => 7,
+                'image_chaussure' => '2002-BEIGE.jpg', // Remplacez par le chemin d'accès à l'image spécifique
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_chaussure' => 8,
+                'image_chaussure' => '2002_BLACK.jpg', // Remplacez par le chemin d'accès à l'image spécifique
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_chaussure' => 9,
+                'image_chaussure' => 'MS327 BLACK WHITE.jpg', // Remplacez par le chemin d'accès à l'image spécifique
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_chaussure' => 10,
+                'image_chaussure' => 'CAMPUS 00S grey.jpg', // Remplacez par le chemin d'accès à l'image spécifique
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_chaussure' => 11,
+                'image_chaussure' => 'GAZELLE orange.jpg', // Remplacez par le chemin d'accès à l'image spécifique
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_chaussure' => 12,
+                'image_chaussure' => 'GAZELLE green.jpg', // Remplacez par le chemin d'accès à l'image spécifique
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

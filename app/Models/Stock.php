@@ -18,12 +18,16 @@ class Stock extends Model
 
     public function chaussure()
     {
-        return $this->hasMany(Chaussure::class, 'id_chaussure', 'id_chaussure');
+        return $this->belongsTo(Chaussure::class, 'id_chaussure');
     }
 
     public function taille()
     {
         return $this->hasMany(Taille::class, 'id_taille', 'id_taille');
+    }
+    public function commande()
+    {
+        return $this->hasMany(Commande::class, 'id_stock');
     }
 
 }

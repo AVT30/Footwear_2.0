@@ -14,7 +14,7 @@
                         </svg>
                     </span>
                 </summary>
-                {{-- juste pour expliquer disposition un peu farfelu ou j'ai crée un script pour supprimer une adresse car j'ai eu des soucis avec la suppresion d adresse par la voie classique --}}
+                {{-- juste pour expliquer une disposition un peu farfelu ou j'ai crée un script pour supprimer une adresse car j'ai eu des soucis avec la suppresion d adresse par la voie classique --}}
                 @if ($adresses->count() > 0)
                 <form id="delete-form" action="{{ route('adresses.destroy', 0) }}" method="POST" class="inline-block">
                     @csrf
@@ -28,7 +28,7 @@
                         @foreach ($adresses as $adresse)
                             <div class="flex items-center space-x-4">
                                 <label class="inline-flex items-center">
-                                    <input type="radio" name="adresse_id" value="{{ $adresse->id_adresse }}" required>
+                                    <input type="radio" name="id_adresse" value="{{ $adresse->id_adresse }}" required>
                                     <span class="ml-2">{{ $adresse->adresse }} {{ $adresse->code_postal }} {{ $adresse->ville }} {{ $adresse->pays->pays }}</span>
                                 </label>
                                 <div class="flex space-x-4">

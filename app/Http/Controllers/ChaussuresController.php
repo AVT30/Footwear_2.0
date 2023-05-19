@@ -64,6 +64,13 @@ class ChaussuresController extends Controller
         }
     }
 
+    //affichage flux chaussures dans l'acceuil
+    public function accueil()
+    {
+        $chaussures = Chaussure::orderBy('created_at', 'desc')->take(10)->get();
+
+    }
+
     public function show(Request $request)
     {
 

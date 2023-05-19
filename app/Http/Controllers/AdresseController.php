@@ -55,6 +55,7 @@ class AdresseController extends Controller
 
             if($prixRabais != null){
                 $totalpanier += $item->quantity * $prixRabais;
+
             } else {
                 $totalpanier += $item->quantity * $prix;
             }

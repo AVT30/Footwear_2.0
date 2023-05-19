@@ -21,9 +21,9 @@
                                     <h2 class="text-lg font-bold text-gray-900">{{$item->name}}</h2>
                                     <p class="mt-1 text-xs text-gray-700">Taille chaussure : {{$item->attributes->taille}}</p>
                                     @if ($item->attributes->prixrabais)
-                                        <p class="mt-1 text-xs text-red-600">{{ $item->attributes->prixrabais }} CHF <p class="mt-1 text-xs line-through text-gray-700">{{ $item->price }} CHF</p></p>
+                                        <p class="mt-1 text-xs text-red-600">{{ number_format($item->attributes->prixrabais, 2) }} CHF <p class="mt-1 text-xs line-through text-gray-700">{{ number_format($item->price, 2) }} CHF</p></p>
                                     @else
-                                        <p class="mt-1 text-xs text-gray-700">{{ $item->price }} CHF</p>
+                                        <p class="mt-1 text-xs text-gray-700">{{ number_format($item->price, 2) }} CHF</p>
                                     @endif
                                 </div>
                                 <div class="mt-4 flex justify-between im sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
@@ -77,7 +77,7 @@
                     <div class="flex justify-between">
                         <p class="text-lg font-bold">Total</p>
                     <div class="">
-                            <p class="mb-1 text-lg font-bold">{{ $totalpanier}} CHF</p>
+                            <p class="mb-1 text-lg font-bold">{{ number_format($totalpanier, 2)}} CHF</p>
                         <p class="text-sm text-gray-700">including VAT</p>
                     </div>
                     </div>

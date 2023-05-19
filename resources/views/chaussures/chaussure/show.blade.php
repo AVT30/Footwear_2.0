@@ -31,14 +31,14 @@
                     @if($pourcentage != null)
                             {{-- deux inputs cachés dans le but de récupèrer ces deux valeurs pour les utilisers dans la card panier apres  --}}
                         <input type="hidden" name="pourcentage" value="{{ $pourcentage }}">
-                        <input type="hidden" name="prixrabais" value="{{ $prix }}">
+                        <input type="hidden" name="prixrabais" value=" {{ number_format($prix, 2) }} CHF">
                         <h1 class=" text-3xl title-font font-medium mb-1  text-red-600" style="cursor: auto;">
-                            {{ $prix }} CHF
+                            {{ number_format($prix, 2) }} CHF
                             <span class="line-through text-gray-500 ">{{ $chaussure->prix }} CHF</span>
                         </h1>
                     @else
                         <h1 class="text-gray-900 text-3xl title-font font-medium mb-1 py-4" style="cursor: auto;">
-                            {{ $chaussure->prix }} CHF
+                            {{ number_format($chaussure->prix, 2) }} CHF
                         </h1>
                     @endif
                     <div class="flex mb-4">
@@ -80,17 +80,19 @@
                                                     {{-- ici un petit for pour afficher les étoiles en fonction du chiffre dans la variable etoile qui est dans le if/ remplir les étoiles en fonction du nombre d'étoile --}}
                                                     <div class="flex items-center mt-2">
                                                         @for ($i = 1; $i <= 5; $i++)
-                                                            @if ($i <= $avisItem->etoile)
-                                                                <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                                    <title>Note donné</title>
-                                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                                                                </svg>
-                                                            @else
-                                                                <svg aria-hidden="true" class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                                    <title>Note donné</title>
-                                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                                                                </svg>
-                                                            @endif
+                                                        @if($pourcentage != null)
+                                                        {{-- Deux inputs cachés dans le but de récupérer ces deux valeurs pour les utilisateurs dans la carte panier --}}
+                                                        <input type="hidden" name="pourcentage" value="{{ $pourcentage }}">
+                                                        <input type="hidden" name="prixrabais" value="{{ $prix }}">
+                                                        <h1 class="text-3xl title-font font-medium mb-1 text-red-600" style="cursor: auto;">
+                                                            {{ number_format($prix, 2) }} CHF
+                                                            <span class="line-through text-gray-500">{{ number_format($chaussure->prix, 2) }} CHF</span>
+                                                        </h1>
+                                                    @else
+                                                        <h1 class="text-gray-900 text-3xl title-font font-medium mb-1 py-4" style="cursor: auto;">
+                                                            {{ number_format($chaussure->prix, 2) }} CHF
+                                                        </h1>
+                                                    @endif
                                                         @endfor
                                                         <div class="flex-1 px-2 ml-2 text-sm font-medium leading-loose text-gray-600">{{$avisItem->etoile}}</div>
                                                     </div>

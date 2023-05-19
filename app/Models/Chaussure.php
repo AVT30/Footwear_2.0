@@ -68,8 +68,14 @@ class Chaussure extends Model
 
     public function stock()
     {
-        return $this->hasManyThrough(Stock::class, Taille::class, 'id_chaussure', 'id_taille');
+    return $this->hasMany(Stock::class, 'id_chaussure');
     }
+
+    public function image()
+    {
+        return $this->hasOne(ImageChaussure::class, 'id_chaussure');
+    }
+
 
     public function commande()
     {

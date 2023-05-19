@@ -10,6 +10,7 @@ use App\Http\Controllers\AvisController;
 use App\Http\Controllers\AdresseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\GererUserController;
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
@@ -25,9 +26,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('accueil');
-});
+Route::get('/', [Controller::class, 'index'])->name('accueil');
 
 // Routes d'authentification de Laravel Breeze
 require __DIR__.'/auth.php';
@@ -97,7 +96,7 @@ Route::post('/stripe', [StripeController::class, 'stripePost'])->name('stripePos
 
 
 //pour la page commandes
-Route::get('/commandes', [CommandeController::class, 'commandes'])->name("commandes");
+Route::get('/commandes', [CommandeController::class, 'commandes'])->middleware(['auth', 'verified'])->name("commandes");
 
 
 //ça renvoie a la fonction ajoutwishlist pour ajouter l'article
@@ -111,7 +110,8 @@ Route::get('/contact-form', [RegisteredUserController::class, 'index']);
 Route::post('/captcha-validation', [RegisteredUserController::class, 'capthcaFormValidate']);
 Route::get('/reload-captcha', [RegisteredUserController::class, 'reloadCaptcha']);
 
-
+//gérér utilisateurs
+Route::get('/gereruser', [GererUserController::class, 'utilisateurs'])->name('gereruser');
 
 
 //pour acceder a ces chemins l'utilisateur doit être connecté

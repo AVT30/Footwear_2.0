@@ -120,7 +120,7 @@
                         <div class="grid grid-cols-1">
                         <div class="flex items-center justify-start">
                             <p class="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
-                                <span class="text-lg">{{ $chaussure->prix }}</span>
+                                <span class="text-lg">{{ number_format($chaussure->prix, 2) }}</span>
                                 <span class="text-sm uppercase">
                                 CHF
                                 </span>

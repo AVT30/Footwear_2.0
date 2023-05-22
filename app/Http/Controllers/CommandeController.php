@@ -20,7 +20,7 @@ class CommandeController extends Controller
 {
     public function commandes()
     {
-       // Récupère l'utilisateur connecté
+        // Récupère l'utilisateur connecté
         $user = Auth::user();
 
         // Régroupe chaque commande par son numéro de commande

@@ -57,11 +57,9 @@ class CheckoutController extends Controller
 
             // Le paiement a été effectué avec succès
             return redirect()->route('checkout.success')->with('success_message', 'Payment successful.');
-
         } catch (\Exception $e) {
             // Il y a eu une erreur lors du paiement
             return redirect()->back()->withErrors(['error_message' => $e->getMessage()]);
         }
     }
-
 }

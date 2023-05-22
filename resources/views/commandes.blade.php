@@ -68,9 +68,9 @@
                                 @else
                                     <td class="hidden py-6 pr-8 sm:table-cell">{{ number_format($commande->chaussure->prix, 2) }} CHF</td>
                             @endif
-                            <td class="hidden py-6 pr-8 sm:table-cell">en attente</td>
+                            <td class="hidden py-6 pr-8 sm:table-cell">{{ $commande->status}}</td>
                             <td class="py-6 font-medium text-right whitespace-nowrap">
-                                <a href="#" class="text-indigo-600">View<span class="hidden lg:inline"> Product</span><span class="sr-only">, Machined Pen and Pencil Set</span></a>
+                                <a class="text-indigo-600" href="{{ route('chaussures.show', $commande->id_chaussure) }}"> voir produit</a>
                             </td>
                             </tr>
                             @endforeach

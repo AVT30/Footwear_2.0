@@ -34,112 +34,106 @@ class StripeController extends Controller
         //ici le sessions pour récupèrer tout le nécessaire pour le payment
         $items = session('items');
         $totalpanier = session('totalpanier');
+        $adresse = session('adresse');
 
-
-        $adresse_id = $request->input('adresse_id');
-        $adresses = Adresse::where('id_adresse', $adresse_id)->get();
+        $id_adresse = $request->input('id_adresse');
+        $adresses = Adresse::where('id_adresse', $id_adresse)->get();
         session(['adresses' => $adresses]);
-
 
         return view('stripe', [
             'items' => $items,
             'totalpanier' => $totalpanier
         ]);
-
-
     }
 
-public function stripePost(Request $request)
-{
-    // Le montant du panier et les chaussures
-    $items = session('items');
-    $adresses = session('adresses');
-    $totalpanier = session('totalpanier');
+    public function stripePost(Request $request)
+    {
+        // Le montant du panier et les chaussures
+        $items = session('items');
+        $adresses = session('adresses');
+        $totalpanier = session('totalpanier');
 
 
-    // Un petit if pour savoir s'il a créé une adresse ou s'il a sélectionné une déjà créée
-    $id_adresse = null;
-
-    if ($adresses !== null) {
-        $id_adresse = $adresses->id_adresse;
-    } else {
-        // Si la valeur de id_adresse est null, effectuez une autre action
-        $id_adresse = $request->input('id_adresse');
-    }
-
-    try {
-        // Code de paiement avec Stripe
-
-        // Vérification du nombre de commandes existantes
-        $nombreCommandes = DB::table('commandes')->count();
-        // Si le nombre de commandes est 0, la première commande portera le numéro 1
-        if ($nombreCommandes == 0) {
-            $numeroCommande = 1;
+        // Un petit if pour savoir s'il a créé une adresse ou s'il a sélectionné une déjà créée
+        if ($adresses != null) {
+            $id_adresse = null;
+            foreach ($adresses as $adresse) {
+                $id_adresse = $adresse->id_adresse;
+            }
         } else {
-            // Récupération de la dernière commande pour ajouter 1 au numéro de commande
-            $derniereCommande = DB::table('commandes')->orderBy('id_commande', 'desc')->first();
-            $numeroCommande = $derniereCommande->numero_commande + 1;
+            $id_adresse = $request->input('id_adresse');
         }
 
-        // On récupère chaque chaussure pour la stocker dans notre table commande et mettre à jour le stock
-        foreach ($items as $item) {
-            $user_id = auth()->user()->id;
+        try {
+            // Code de paiement avec Stripe
 
-            $id_chaussure = $item->id;
-            $price = $item->price;
-            $quantity = $item->quantity;
-            $taille = $item->attributes->taille;
-            $image = $item->attributes->image;
-            $prixrabais = $item->attributes->prixrabais;
+            // Vérification du nombre de commandes existantes
+            $nombreCommandes = DB::table('commandes')->count();
+            // Si le nombre de commandes est 0, la première commande portera le numéro 1
+            if ($nombreCommandes == 0) {
+                $numeroCommande = 1;
+            } else {
+                // Récupération de la dernière commande pour ajouter 1 au numéro de commande
+                $derniereCommande = DB::table('commandes')->orderBy('id_commande', 'desc')->first();
+                $numeroCommande = $derniereCommande->numero_commande + 1;
+            }
 
-            // Ici, on récupère l'id_stock pour le stocker dans la table commande
-            $id_stock = DB::table('stocks')
-                ->join('tailles', 'stocks.id_taille', '=', 'tailles.id_taille')
-                ->where('stocks.id_chaussure', $id_chaussure)
-                ->where('tailles.taille', $taille)
-                ->select('stocks.id_stock')
-                ->first();
-            $id_stock = $id_stock->id_stock;
+            // On récupère chaque chaussure pour la stocker dans notre table commande et mettre à jour le stock
+            foreach ($items as $item) {
+                $user_id = auth()->user()->id;
 
-            // Ici, on met à jour le stock en soustrayant la quantité de chaussures achetées
-            DB::table('stocks')->where('id_stock', $id_stock)->decrement('stock', $quantity);
+                $id_chaussure = $item->id;
+                $price = $item->price;
+                $quantity = $item->quantity;
+                $taille = $item->attributes->taille;
+                $image = $item->attributes->image;
+                $prixrabais = $item->attributes->prixrabais;
 
-            // Création de la commande
-            DB::table('commandes')->insert([
-                'id_utilisateur' => Auth::id(),
-                'id_stock' => $id_stock,
-                'montant' => $totalpanier,
-                'id_adresse' => $id_adresse,
-                'id_chaussure' => $id_chaussure,
-                'numero_commande' => $numeroCommande,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
+                // Ici, on récupère l'id_stock pour le stocker dans la table commande
+                $id_stock = DB::table('stocks')
+                    ->join('tailles', 'stocks.id_taille', '=', 'tailles.id_taille')
+                    ->where('stocks.id_chaussure', $id_chaussure)
+                    ->where('tailles.taille', $taille)
+                    ->select('stocks.id_stock')
+                    ->first();
+                $id_stock = $id_stock->id_stock;
 
-        $shuffledCollection = Chaussure::all();
+                // Ici, on met à jour le stock en soustrayant la quantité de chaussures achetées
+                DB::table('stocks')->where('id_stock', $id_stock)->decrement('stock', $quantity);
 
-        // Pour la page recherche, cette fonction va récupérer des chaussures au hasard pour les afficher en suggestions
-        $listchaussures = $shuffledCollection->shuffle();
+                // Création de la commande
+                DB::table('commandes')->insert([
+                    'id_utilisateur' => Auth::id(),
+                    'id_stock' => $id_stock,
+                    'montant' => $totalpanier,
+                    'id_adresse' => $id_adresse,
+                    'id_chaussure' => $id_chaussure,
+                    'numero_commande' => $numeroCommande,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
 
-                 //afficher l'image de chaque chaussure qui est dans la liste à la vue
-                 foreach ($listchaussures as $chaussure) {
-                    $images = ImageChaussure::where('id_chaussure', $chaussure->id_chaussure)->get();
-                    $chaussure->image = $images->first();
-                }
+            // Code pour vider le panier une fois l'achat éffectué
+            Cart::clear();
+
+            $shuffledCollection = Chaussure::all();
+
+            // Pour la page recherche, cette fonction va récupérer des chaussures au hasard pour les afficher en suggestions
+            $listchaussures = $shuffledCollection->shuffle()->take(8);
+
+            //afficher l'image de chaque chaussure qui est dans la liste à la vue
+            foreach ($listchaussures as $chaussure) {
+                $images = ImageChaussure::where('id_chaussure', $chaussure->id_chaussure)->get();
+                $chaussure->image = $images->first();
+            }
 
             return view("success", ['listchaussures' => $listchaussures,]);
-        }
-        catch(\Stripe\Exception\CardException $ex) {
+        } catch (\Stripe\Exception\CardException $ex) {
             $error = $ex->getError();
             $message = $error->message;
             Session::flash('stripe_error', $message);
             return redirect()->back();
         }
-
     }
-
-
-
-
 }

@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             ImageTableSeeder::class,
             StockTableSeeder::class,
             RabaisTableSeeder::class,
+            AvisTableSeeder::class,
         ]);
 
     }

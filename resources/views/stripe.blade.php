@@ -29,30 +29,30 @@
             <div class="mb-3">
                 <label class="font-bold text-sm mb-2 ml-1">Nom de Carte</label>
                 <div>
-                    <input class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="John Smith" type="text" id="nomcarte" name="nomcarte" maxlength="50"/>
+                    <input class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="Entrez les valeurs par défault : John Smith" type="text" id="nomcarte" name="nomcarte" maxlength="50"/>
                 </div>
             </div>
             <div class="mb-3">
                 <label class="font-bold text-sm mb-2 ml-1">Numero de carte</label>
                 <div>
-                    <input class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="0000 0000 0000 0000" type="number" id="number" name="number" maxlength="16" required/>
+                    <input class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="4242 4242 4242 4242" type="number" id="number" name="number" maxlength="16" required/>
                 </div>
             </div>
             <div class="mb-3 -mx-2 flex items-end">
                 <div class="px-2 w-1/2">
                     <label class="font-bold text-sm mb-2 ml-1">Expiration date</label>
                     <div>
-                        <input type="number" class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" id="exp_month" name="exp_month" placeholder="Mois d'expiration (MM) " maxlength="2" required>
+                        <input type="number" class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" id="exp_month" name="exp_month" placeholder="12 " maxlength="2" required>
                     </div>
                 </div>
                 <div class="px-2 w-1/2">
-                    <input type="number" class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" id="exp_year" name="exp_year" placeholder="Année d'expiration (YYYY)" maxlength="4" required>
+                    <input type="number" class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" id="exp_year" name="exp_year" placeholder="2025" maxlength="4" required>
                 </div>
             </div>
             <div class="mb-10">
                 <label class="font-bold text-sm mb-2 ml-1">CVC</label>
                 <div>
-                    <input class="w-32 px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="000" type="number"  id="cvc" name="cvc" required/>
+                    <input class="w-32 px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="123" type="number"  id="cvc" name="cvc" required/>
                 </div>
             </div>
             <div class="mb-10">

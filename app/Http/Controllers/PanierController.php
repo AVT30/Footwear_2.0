@@ -32,8 +32,8 @@ class PanierController extends Controller
         // If the validation fails, redirect back to the form with errors
         if ($validator->fails()) {
             return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
+                ->withErrors($validator)
+                ->withInput();
         }
 
         // If the validation passes, add the item to the cart
@@ -50,10 +50,12 @@ class PanierController extends Controller
             'name' => $chaussure->modele,
             'price' => $chaussure->prix,
             'quantity' => $request->input('quantity'),
-            'attributes' => array('taille' => $request->input('taille'),
-                                    'image' => $image->image_chaussure,
-                                    'pourcentage' => $request->input('pourcentage'),
-                                    'prixrabais' => $request->input('prixrabais'))
+            'attributes' => array(
+                'taille' => $request->input('taille'),
+                'image' => $image->image_chaussure,
+                'pourcentage' => $request->input('pourcentage'),
+                'prixrabais' => $request->input('prixrabais')
+            )
         ));
 
         // Redirect to the cart page
@@ -65,12 +67,16 @@ class PanierController extends Controller
         $items = Cart::getContent();
         $totalpanier = 0;
 
+
         // petit foreach pour faire un calcul du total final si la chaussure a un rabais, le total se fait en fonction du prix avec le rabais
-        foreach($items as $item){
+        foreach ($items as $item) {
             $prix = $item->price;
             $prixRabais = $item->attributes->prixrabais;
 
-            if($prixRabais != null){
+            //pour supprimer tous ce qui est lettres
+            $prixRabais = preg_replace('/[^0-9.]/', '', $prixRabais);
+
+            if ($prixRabais != null) {
                 $totalpanier += $item->quantity * $prixRabais;
             } else {
                 $totalpanier += $item->quantity * $prix;
@@ -87,9 +93,9 @@ class PanierController extends Controller
     }
 
     public function supprimerArticle($id)
-{
-    Cart::remove($id);
+    {
+        Cart::remove($id);
 
-    return redirect()->route('panier');
-}
+        return redirect()->route('panier');
+    }
 }

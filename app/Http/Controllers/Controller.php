@@ -52,8 +52,6 @@ class Controller extends BaseController
             // Assigner les valeurs correspondantes à chaque chaussure
             $chaussure->pourcentage = $pourcentage;
             $chaussure->prix = $prix;
-
-
         }
 
         return view('accueil', ['chaussures' => $chaussures]);

@@ -11,6 +11,7 @@ use App\Http\Controllers\AdresseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\GererUserController;
+use App\Http\Controllers\GererAvisController;
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
@@ -112,6 +113,18 @@ Route::get('/reload-captcha', [RegisteredUserController::class, 'reloadCaptcha']
 
 //gérér utilisateurs
 Route::get('/gereruser', [GererUserController::class, 'utilisateurs'])->name('gereruser');
+
+//gérér avis
+Route::get('/gereravis', [GererAvisController::class, 'avis'])->name('gereravis');
+
+//gerer l'activation et désactivation des comptes users
+Route::put('/gerer-users/activer/{id}', [GererUserController::class, 'activer'])->name('gerer-users.activer');
+Route::put('/gerer-users/desactiver/{id}', [GererUserController::class, 'desactiver'])->name('gerer-users.desactiver');
+
+//gerer l'activation et désactivation des avis
+Route::post('avis/{id}/accepter', [GererAvisController::class, 'accepterAvis'])->name('avis.accepter');
+Route::delete('avis/{id}/supprimer', [GererAvisController::class, 'supprimerAvis'])->name('avis.supprimer');
+
 
 
 //pour acceder a ces chemins l'utilisateur doit être connecté

@@ -21,7 +21,8 @@ use Illuminate\View\View;
 class AvisController extends Controller
 {
     // l'id dans l'argument est pour la chaussure
-    public function avisuser(Request $request, $id) {
+    public function avisuser(Request $request, $id)
+    {
 
         // Vérifier le captcha
         $request->validate([
@@ -38,7 +39,4 @@ class AvisController extends Controller
         // Rediriger l'utilisateur vers la page de la chaussure
         return redirect()->back()->with('success', 'Votre avis a bien été ajouté.');
     }
-
 }
-
-

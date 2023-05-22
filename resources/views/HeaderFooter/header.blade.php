@@ -88,6 +88,9 @@
                 <li>
                     <a href="{{ route('gereruser') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Gérer utilisateurs</a>
                 </li>
+                <li>
+                    <a href="{{ route('gereravis') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Gérer Avis</a>
+                </li>
            </ul>
           </div>
     </div>
@@ -129,7 +132,7 @@
 			</div>
 			<div class="mt-auto">
 				<div class="pt-6">
-					<a class="block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl" href="#">Sign in</a>
+					<a class="block px-4 py-3 mb-3  text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl" href="#">Sign in</a>
 					<a class="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700  rounded-xl" href="#">Sign Up</a>
 				</div>
 				<p class="my-4 text-xs text-center text-gray-400">

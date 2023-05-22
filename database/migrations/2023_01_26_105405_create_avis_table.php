@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('id_utilisateur')->constrained('users', 'id_utilisateur')->onDelete('cascade');
             //clé étrangère pour les chaussures
             $table->foreignId('id_chaussure')->constrained('chaussures', 'id_chaussure')->onDelete('cascade');
+            $table->boolean('isActive')->default(false);
             $table->timestamps();
         });
     }

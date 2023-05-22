@@ -21,7 +21,7 @@
                                     <h2 class="text-lg font-bold text-gray-900">{{$item->name}}</h2>
                                     <p class="mt-1 text-xs text-gray-700">Taille chaussure : {{$item->attributes->taille}}</p>
                                     @if ($item->attributes->prixrabais)
-                                        <p class="mt-1 text-xs text-red-600">{{ number_format($item->attributes->prixrabais, 2) }} CHF <p class="mt-1 text-xs line-through text-gray-700">{{ number_format($item->price, 2) }} CHF</p></p>
+                                    <p class="mt-1 text-xs text-red-600">{{ number_format(floatval($item->attributes->prixrabais), 2) }} CHF <p class="mt-1 text-xs line-through text-gray-700">{{ number_format(floatval($item->price), 2) }} CHF</p></p>
                                     @else
                                         <p class="mt-1 text-xs text-gray-700">{{ number_format($item->price, 2) }} CHF</p>
                                     @endif

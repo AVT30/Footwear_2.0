@@ -19,7 +19,7 @@ class SearchController extends Controller
 
 
         //pour la page recherhece quand l'utilisateur ne trouve pas une chaussure en particulier, cette fonction va tirer des chaussures au hasard à lui montrer pour en faire des "suggestions"
-        $listchaussures = $shuffledCollection->shuffle();
+        $listchaussures = $shuffledCollection->shuffle()->take(8);
 
         $chaussures = [];
         //ce code va essayer de chercher la valeur qui correspond à la demande de l'utilisateur
@@ -31,17 +31,17 @@ class SearchController extends Controller
             ->orWhere('couleurS', 'like', "%$query%")
             ->get();
 
-             //afficher l'image de chaque chaussure qui est dans la liste à la vue
-             foreach ($chaussures as $chaussure) {
-                $images = ImageChaussure::where('id_chaussure', $chaussure->id_chaussure)->get();
-                $chaussure->image = $images->first();
-            }
+        //afficher l'image de chaque chaussure qui est dans la liste à la vue
+        foreach ($chaussures as $chaussure) {
+            $images = ImageChaussure::where('id_chaussure', $chaussure->id_chaussure)->get();
+            $chaussure->image = $images->first();
+        }
 
-             //afficher l'image de chaque chaussure qui est dans la liste à la vue
-             foreach ($listchaussures as $chaussure) {
-                $images = ImageChaussure::where('id_chaussure', $chaussure->id_chaussure)->get();
-                $chaussure->image = $images->first();
-            }
+        //afficher l'image de chaque chaussure qui est dans la liste à la vue
+        foreach ($listchaussures as $chaussure) {
+            $images = ImageChaussure::where('id_chaussure', $chaussure->id_chaussure)->get();
+            $chaussure->image = $images->first();
+        }
 
         //retour à la vu search avec ce que l'utilisateur demande
         return view('search', ['chaussures' => $chaussures, 'listchaussures' => $listchaussures,], compact('query'));

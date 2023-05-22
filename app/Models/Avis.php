@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 class Avis extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'id_avis';
+
     //pour indiquer a laravel que je vais remplir ces champs de valeurs
     protected $fillable = ['id_chaussure', 'etoile', 'commentaire', 'id_utilisateur'];
 

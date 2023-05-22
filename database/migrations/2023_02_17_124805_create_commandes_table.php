@@ -21,6 +21,8 @@ return new class extends Migration
             $table->foreignId('id_stock')->constrained('stocks', 'id_stock')->onDelete('cascade');
             // numero commande
             $table->integer('numero_commande');
+            // status de la commande
+            $table->string('status')->default("en attente");
             // total payeé
             $table->decimal('montant', 10, 2)->default(0.00);
             //clé étrangère pour les chaussures

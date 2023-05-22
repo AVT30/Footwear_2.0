@@ -23,10 +23,10 @@ class WhislistController extends Controller
 
         //j'ai du faire cette requete sql pour recuperer les chaussures par l'id a travers la table stock. j'ai fait cette methode pour ne pas devoir refaire un migrate et ainsi perdre les données
         $chaussures = DB::table('chaussures')
-        ->join('wishlists', 'chaussures.id_chaussure', '=', 'wishlists.id_chaussure')
-        ->select('*')
-        ->where('wishlists.id_utilisateur', Auth::id())
-        ->get();
+            ->join('wishlists', 'chaussures.id_chaussure', '=', 'wishlists.id_chaussure')
+            ->select('*')
+            ->where('wishlists.id_utilisateur', Auth::id())
+            ->get();
 
         // //ici une foreach pour afficher l'image de chaque chaussure qui est dans la liste à la vue
         foreach ($chaussures as $chaussure) {
@@ -34,11 +34,10 @@ class WhislistController extends Controller
             $chaussure->image = $images->first();
         }
 
-        return view('whislist',[
-                'whislist' => $whislist,
-                'chaussures' => $chaussures,
-            ]);
-
+        return view('whislist', [
+            'whislist' => $whislist,
+            'chaussures' => $chaussures,
+        ]);
     }
 
     public function ajoutwhislist(Request $request)
@@ -52,26 +51,23 @@ class WhislistController extends Controller
         $wishlist->save();
 
         return back()->with('success', 'Le produit a été ajouté à la liste de souhaits.');
-
     }
 
     public function supprimerwhislist(Request $request)
     {
         $idChaussure = $request->id;
 
-            // Trouver la relation correspondante dans la table wishlist
-            $wishlist = DB::table('wishlists')
-                ->where('id_chaussure', $idChaussure)
-                ->where('id_utilisateur', Auth::id())
-                ->first();
+        // Trouver la relation correspondante dans la table wishlist
+        $wishlist = DB::table('wishlists')
+            ->where('id_chaussure', $idChaussure)
+            ->where('id_utilisateur', Auth::id())
+            ->first();
 
-            // Supprimer la relation si elle existe
-            if ($wishlist) {
-                DB::table('wishlists')->where('id_wishlist', $wishlist->id_wishlist)->delete();
-            }
-            //on retourne sur la page avec les chaussures
-            return back()->with('success', 'Le produit a été ajouté à la liste de souhaits.');
-
+        // Supprimer la relation si elle existe
+        if ($wishlist) {
+            DB::table('wishlists')->where('id_wishlist', $wishlist->id_wishlist)->delete();
+        }
+        //on retourne sur la page avec les chaussures
+        return back()->with('success', 'Le produit a été ajouté à la liste de souhaits.');
     }
-
 }

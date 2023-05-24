@@ -3,8 +3,8 @@
 
 @section('content')
 
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+<x-guest-layout >
+    <form method="POST" action="{{ route('register') }}" class="py-10">
         @csrf
 
         <!-- genre -->
@@ -68,9 +68,6 @@
             <x-input-label for="captcha" :value="__('Captcha')" />
             <div class="captcha">
                 <span>{!! captcha_img() !!}</span>
-                <button type="button" class="btn btn-danger" class="reload" id="reload">
-                    &#x21bb;
-                </button>
             </div>
         </div>
 

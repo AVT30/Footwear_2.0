@@ -1,13 +1,13 @@
 @extends('layout.page')
 
 @section('content')
-    <div class="">
+    <div class="container mx-auto">
         {{-- Carousel --}}
         @include('carousel.carousel')
     </div>
-    {{-- Carousel pour les chasssures  --}}
-    <div class="">
-        <h1 class=""> Voici les derniers articles que vous avons en vente !!!</h1>
+    {{-- Carousel pour les chaussures --}}
+    <div class="container mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Voici les derniers articles que nous avons en vente !!!</h1>
         @include('carousel.chaussures')
     </div>
 @endsection

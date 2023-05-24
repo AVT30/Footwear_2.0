@@ -13,7 +13,7 @@ class Commande extends Model
 
     protected $fillable = ['id_utilisateur', 'id_stock'];
 
-    public function utilisateur()
+    public function User()
     {
         return $this->belongsTo(User::class, 'id_utilisateur');
     }

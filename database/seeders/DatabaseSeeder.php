@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
             UtilisateursTableSeeder::class,
             PaysTableSeeder::class,
             TaillesTableSeeder::class,
-            TypeTableSeeder::class,
             ImageTableSeeder::class,
             StockTableSeeder::class,
             RabaisTableSeeder::class,

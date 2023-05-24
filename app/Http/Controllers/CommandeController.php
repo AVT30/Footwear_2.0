@@ -11,16 +11,19 @@ use App\Models\TypeChaussure;
 use App\Models\Taille;
 use App\Models\ImageChaussure;
 use App\Models\Rabais;
+use App\Models\User;
+use App\Models\Adresse;
 use App\Models\Stock;
 use App\Models\Avis;
 use App\Models\Commande;
 use Illuminate\View\View;
+use PDF;
 
 class CommandeController extends Controller
 {
     public function commandes()
     {
-        // Récupère l'utilisateur connecté
+       // Récupère l'utilisateur connecté
         $user = Auth::user();
 
         // Régroupe chaque commande par son numéro de commande
@@ -61,9 +64,35 @@ class CommandeController extends Controller
         }
 
 
-
+        session(['chaussuresParCommande' => $chaussuresParCommande]);
         return view('commandes', [
             'chaussuresParCommande' => $chaussuresParCommande,
         ]);
     }
+
+    //fonction qui servira a la création du pdf de la commande
+    public function genererPDF($numeroCommande)
+{
+    // Récupérer la liste des commandes avec le numéro de commande donné
+    $commandes = Commande::where('numero_commande', $numeroCommande)->get();
+
+    // Récupérer l'adresse et l'utilisateur associés à la première commande car toutes les commandes de la liste ont en commun la meme adresse et utilisateur
+    $premiereCommande = $commandes->first();
+    $adresse = Adresse::find($premiereCommande->id_adresse);
+    $utilisateur = User::find($premiereCommande->id_utilisateur);
+    $datecommande = $premiereCommande->created_at;
+
+    $montant = $commandes->sum('montant');
+
+
+    // Contenu du PDF qu'on peut modifier dans pdf.blade.php
+    $contenu = view('pdf', compact('commandes', 'adresse', 'utilisateur', 'montant','numeroCommande','datecommande'))->render();
+
+    // La vue PDF blade sera reconvertie en PDF
+    $pdf = PDF::loadHtml($contenu);
+
+    return $pdf->stream('commande_' . $numeroCommande . '.pdf');
+}
+
+
 }

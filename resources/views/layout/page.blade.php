@@ -17,7 +17,7 @@
         @include('HeaderFooter.header')
     </nav>
 
-    <main class="flex-grow container z-0" style="margin-top: auto;">
+    <main class="flex-grow container z-0 py-3" style="margin-top: auto;">
         @yield('content')
     </main>
 
@@ -26,8 +26,3 @@
     </footer>
 </body>
 </html>
-
-
-
-
-

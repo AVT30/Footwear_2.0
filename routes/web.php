@@ -125,6 +125,8 @@ Route::put('/gerer-users/desactiver/{id}', [GererUserController::class, 'desacti
 Route::post('avis/{id}/accepter', [GererAvisController::class, 'accepterAvis'])->name('avis.accepter');
 Route::delete('avis/{id}/supprimer', [GererAvisController::class, 'supprimerAvis'])->name('avis.supprimer');
 
+//pour le pdf de la commande (je prends le numero de commande car comme ca je prends toutes les chaussures qui concernent la commande)
+Route::get('/commande/pdf/{numeroCommande}', [CommandeController::class, 'genererPDF'])->name('commande.pdf');
 
 
 //pour acceder a ces chemins l'utilisateur doit être connecté

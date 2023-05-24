@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('modele');
             $table->string('marque');
             $table->string('genre');
+            //clé étrangère pour les types
+            $table->foreignId('id_list_types')->constrained('list_type_chaussures', 'id_list_types');
             $table->string('couleurP');
             $table->string('couleurS');
             $table->double('prix');

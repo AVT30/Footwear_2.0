@@ -5,7 +5,7 @@
         </h2>
 
         <p class="mt-1 text-sm text-gray-600">
-            {{ __("Update your account's profile information and email address.") }}
+            {{ __("Mettez a jour les informations concernant votre compte") }}
         </p>
     </header>
 
@@ -34,13 +34,13 @@
                         {{ __('Your email address is unverified.') }}
 
                         <button form="send-verification" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            {{ __('Click here to re-send the verification email.') }}
+                            {{ __('Cliquez ici pour une vérification par email.') }}
                         </button>
                     </p>
 
                     @if (session('status') === 'verification-link-sent')
                         <p class="mt-2 font-medium text-sm text-green-600">
-                            {{ __('A new verification link has been sent to your email address.') }}
+                            {{ __('Un nouveau lien de vérification a été envoyé sur votre mail.') }}
                         </p>
                     @endif
                 </div>
@@ -48,7 +48,7 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
+            <x-primary-button>{{ __('Sauvegarder') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')
                 <p

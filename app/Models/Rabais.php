@@ -10,6 +10,8 @@ class Rabais extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id_rabais';
+
     protected $fillable = ['id_chaussure', 'rabais', 'expiration_rabais'];
     // ...
 

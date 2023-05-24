@@ -1,4 +1,10 @@
 <!-- Première partie: type de chaussure, ici on va afficher la liste des types de chaussures que nous proposons -->
+@php
+    use App\Models\listTypeChaussures;
+    $listTypeChaussures = listTypeChaussures::all();
+
+@endphp
+
 <div class="col-span-1 hidden lg:block">
     <div class="full-grid h-screen">
         <div class="ml-8">
@@ -16,7 +22,7 @@
                         </button>
                         <div class="relative overflow-hidden transition-all max-h-0 duration-700" style="" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
                             <div class="px-10">
-                                @foreach($list_type_chaussures as $type_chaussure)
+                                @foreach($listTypeChaussures as $type_chaussure)
                                 {{-- un if pour trier la liste selon sa catégorie --}}
                                     @if (strpos($type_chaussure->type_chaussures, 'Sneakers') !== false)
                                         <a href="{{ route('chaussures.list', ['types' => $type_chaussure->type_chaussures]) }}">
@@ -39,7 +45,7 @@
                         </button>
                         <div class="relative overflow-hidden transition-all max-h-0 duration-700" style="" x-ref="container2" x-bind:style="selected == 2 ? 'max-height: ' + $refs.container2.scrollHeight + 'px' : ''">
                             <div class="px-10">
-                                @foreach($list_type_chaussures as $type_chaussure)
+                                @foreach($listTypeChaussures as $type_chaussure)
                                 {{-- un if pour trier la liste selon sa catégorie --}}
                                     @if (strpos($type_chaussure->type_chaussures, 'Chaussures') !== false)
                                         <a href="{{ route('chaussures.list', ['types' => $type_chaussure->type_chaussures]) }}">
@@ -62,7 +68,7 @@
                         </button>
                         <div class="relative overflow-hidden transition-all max-h-0 duration-700" style="" x-ref="container3" x-bind:style="selected == 3 ? 'max-height: ' + $refs.container3.scrollHeight + 'px' : ''">
                             <div class="px-10">
-                                @foreach($list_type_chaussures as $type_chaussure)
+                                @foreach($listTypeChaussures as $type_chaussure)
                                 {{-- un if pour trier la liste selon sa catégorie --}}
                                     @if (strpos($type_chaussure->type_chaussures, 'Sport') !== false)
                                         <a href="{{ route('chaussures.list', ['types' => $type_chaussure->type_chaussures]) }}">

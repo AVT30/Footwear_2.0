@@ -4,15 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\TypeChaussure;
+use App\Models\Chaussure;
 
 class listTypeChaussures extends Model
 {
     use HasFactory;
 
-    public function typeChaussure()
+    protected $primaryKey = 'id_list_types';
+
+    public function chaussure()
     {
-        return $this->belongsTo(TypeChaussure::class);
+        return $this->hasMany(Chaussure::class);
     }
 
 }

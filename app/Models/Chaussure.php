@@ -22,24 +22,18 @@ class Chaussure extends Model
     protected $primaryKey = 'id_chaussure';
 
     //pour indiquer a laravel que je vais remplir ces champs de valeurs
-    protected $fillable = ['modele', 'marque', 'genre', 'couleurP', 'couleurS', 'prix'];
+    protected $fillable = ['modele', 'marque', 'genre', 'id_list_types', 'couleurP', 'couleurS', 'prix'];
 
     public function images()
     {
         return $this->hasMany(ImageChaussure::class, 'id_chaussure');
     }
 
-    public function typeChaussure()
+    public function listTypeChaussure()
     {
-        return $this->hasOneThrough(
-            TypeChaussure::class,
-            listTypeChaussures::class,
-            'id_chaussure',
-            'id_list_types',
-            'id_chaussure',
-            'id_list_types'
-        );
+        return $this->belongsTo(listTypeChaussures::class, 'id_list_types');
     }
+
 
     public function avis()
     {

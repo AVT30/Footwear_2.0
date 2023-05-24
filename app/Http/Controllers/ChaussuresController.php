@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Chaussure;
 use App\Models\listTypeChaussures;
-use App\Models\TypeChaussure;
 use App\Models\Taille;
 use App\Models\ImageChaussure;
 use App\Models\Rabais;
@@ -18,49 +17,55 @@ class ChaussuresController extends Controller
 {
     public function chaussures($type)
     {
-        $chaussures = Chaussure::join('type_chaussures', 'chaussures.id_chaussure', '=', 'type_chaussures.id_chaussure')
-            ->join('list_type_chaussures', 'type_chaussures.id_list_types', '=', 'list_type_chaussures.id_list_types')
-            ->select('chaussures.*', 'list_type_chaussures.type_chaussures')
-            ->paginate(9);
+        // Récupère toutes les chasussures
+        $chaussures = Chaussure::all();
 
-        //melange les cahssures afin d'afficher une liste de chaussures au hasard
+        // Récupère toutes les types de chaussures
+        $listTypeChaussures = listTypeChaussures::all();
+
+        // Mélange les chaussures afin d'afficher une liste de chaussures au hasard
         $type_slug = strtolower(str_replace(" ", "-", $type));
-        //ici une foreach pour afficher l'image de chaque chaussure qui est dans la liste à la vue
-        foreach ($chaussures as $chaussure) {
-            $images = ImageChaussure::where('id_chaussure', $chaussure->id_chaussure)->get();
-            $chaussure->image = $images->first();
 
-            // Calculer le rabais et le prix réduit pour chaque chaussure
-            $rabais = Rabais::where('id_chaussure', $chaussure->id_chaussure)->where('expiration_rabais', '>', now())->first();
+        // Pour chaque type de chaussure, récupère les chaussures paginées avec leurs rabais correspondants
+        $chaussuresPagineesParType = [];
+        foreach ($listTypeChaussures as $typeChaussure) {
+            $chaussuresType = Chaussure::where('id_list_types', $typeChaussure->id_list_types)->paginate(9);
 
-            $pourcentage = null;
-            $prix = $chaussure->prix;
+            // Pour chaque chaussure, récupère le rabais correspondant
+            foreach ($chaussuresType as $chaussure) {
+                $images = ImageChaussure::where('id_chaussure', $chaussure->id_chaussure)->get();
+                $chaussure->image = $images->first();
 
-            if ($rabais) {
-                $pourcentage = $rabais->rabais;
-                $prixReduit = $prix - ($prix * $rabais->rabais / 100);
-                $prix = $prixReduit;
+                $rabais = Rabais::where('id_chaussure', $chaussure->id_chaussure)->where('expiration_rabais', '>', now())->first();
+                $pourcentage = null;
+                $prix = $chaussure->prix;
+
+                if ($rabais) {
+                    $pourcentage = $rabais->rabais;
+                    $prixReduit = $prix - ($prix * $rabais->rabais / 100);
+                    $prix = $prixReduit;
+                }
+
+                // Assigner les valeurs correspondantes à chaque chaussure
+                $chaussure->pourcentage = $pourcentage;
+                $chaussure->prix = $prix;
             }
 
-            // Assigner les valeurs correspondantes à chaque chaussure
-            $chaussure->pourcentage = $pourcentage;
-            $chaussure->prix = $prix;
+            // Ajouter les chaussures paginées par type à l'array
+            $chaussuresPagineesParType[$typeChaussure->type_chaussures] = $chaussuresType;
         }
-
-
-
-        //pour afficher la page de création de chaussure avec listtypechaussures pour attribuer le type à la chaussure
-        $list_type_chaussures = listTypeChaussures::all();
 
         if (view()->exists('chaussures.' . $type_slug)) {
             return view('chaussures.' . $type_slug, [
                 'chaussures' => $chaussures,
-                'list_type_chaussures' => $list_type_chaussures,
+                'chaussuresPagineesParType' => $chaussuresPagineesParType,
+                'listTypeChaussures' => $listTypeChaussures,
             ]);
         } else {
             abort(404);
         }
     }
+
 
     //affichage flux chaussures dans l'acceuil
     public function accueil()
@@ -108,7 +113,8 @@ class ChaussuresController extends Controller
         return view('chaussures.chaussure.show', [
             'chaussure' => $chaussure,
             'avis' => $avis,
-            'prix' => $prix, // passer le prix calculé à la vue et s'il n'y a pas de rabais ca affiche le prix de base
+            'prix' => $prix,
+            // passer le prix calculé à la vue et s'il n'y a pas de rabais ca affiche le prix de base
             'pourcentage' => $pourcentage,
             'moyenneEtoiles' => $moyenneEtoiles,
             'totalAvis' => $totalAvis
@@ -119,24 +125,31 @@ class ChaussuresController extends Controller
     public function creationchaussure(Request $request)
     {
         //pour afficher la page de création de chaussure avec listtypechaussures pour attribuer la type à la chaussure
-        $list_type_chaussures = listTypeChaussures::all();
+        $listTypeChaussures = listTypeChaussures::all();
 
         return view('admin.creation', [
-            'list_type_chaussures' => $list_type_chaussures
+            'listTypeChaussures' => $listTypeChaussures
         ]);
     }
 
     public function creation(Request $request)
     {
         //création de la chaussure pour l'admin pour faciliter l'ajout
+
         $chaussure = Chaussure::create([
             'modele' => $request->input('modele'),
             'marque' => $request->input('marque'),
             'genre' => $request->input('genre'),
+            'id_list_types' => $request->input('type-chaussures'),
             'couleurP' => $request->input('couleurP'),
             'couleurS' => $request->input('couleurS'),
             'prix' => $request->input('prix'),
+        ]);
 
+        //on mets un validate pour que le rabais et la date d expiration soient toutes les deux remplis
+        $request->validate([
+            'rabais' => 'required_with:daterabaisexpiration',
+            'daterabaisexpiration' => 'required_with:rabais',
         ]);
 
         $idChaussure = $chaussure->id_chaussure;
@@ -162,15 +175,6 @@ class ChaussuresController extends Controller
             $imageChaussure->save();
         }
 
-        //on récupere l'id de l'input type chaussure pour l'attribuer a la type type chaussure
-        $idTypeChaussures = $request->input('type-chaussures');
-
-        //on crée dans la table types chaussure la liason entre le type et la chaussre
-        $typeChaussure = new TypeChaussure();
-        $typeChaussure->id_chaussure = $idChaussure;
-        $typeChaussure->id_list_types = $idTypeChaussures;
-        $typeChaussure->save();
-
         //ici on va faire que pour la chaussure, un nombre de 200 paires par taille soit stocké dans la table stock
         $tailles = Taille::all();
 
@@ -184,7 +188,6 @@ class ChaussuresController extends Controller
 
         //création du rabais
         $pourcentageRabais = $request->input('rabais');
-        $daterabaisexpiration = $request->input('daterabaisexpiration');
 
         // Si le rabais n'est pas vide et est un nombre entre 5 et 75 inclus
         if (!empty($pourcentageRabais) && $pourcentageRabais >= 5 && $pourcentageRabais <= 75) {
@@ -192,7 +195,7 @@ class ChaussuresController extends Controller
             $rabais = new Rabais();
             $rabais->id_chaussure = $idChaussure;
             $rabais->rabais = $pourcentageRabais;
-            $rabais->expiration_rabais = $daterabaisexpiration; // Date d'expiration du rabais
+            $rabais->expiration_rabais = $request->daterabaisexpiration; // Date d'expiration du rabais
             $rabais->save();
         }
 
@@ -229,11 +232,11 @@ class ChaussuresController extends Controller
         }
 
         //pour afficher la page de création de chaussure avec listtypechaussures pour attribuer la type à la chaussure
-        $list_type_chaussures = listTypeChaussures::all();
+        $listTypeChaussures = listTypeChaussures::all();
 
         return view('admin.modification', [
             'chaussures' => $chaussures,
-            'list_type_chaussures' => $list_type_chaussures,
+            'listTypeChaussures' => $listTypeChaussures,
         ]);
     }
 
@@ -243,21 +246,28 @@ class ChaussuresController extends Controller
         $id = $request->id;
 
         $chaussure = Chaussure::findOrFail($id);
+        $listTypeChaussures = listTypeChaussures::all();
 
         //ici  pour afficher l'image de chaque chaussure qui est dans la liste à la vue
         $images = ImageChaussure::where('id_chaussure', $id)->get();
         $chaussure->image = $images->first();
 
-        $rabais = null;
+        $rabais = Rabais::where('id_chaussure', $chaussure->id_chaussure)->where('expiration_rabais', '>', now())->first();
+
         $pourcentage = null;
+        $prix = $chaussure->prix;
+
         if ($rabais) {
-            $rabais = Rabais::where('id_chaussure', $id)->where('expiration_rabais', '>', now())->first();
             $pourcentage = $rabais->rabais;
+            $prixReduit = $prix - ($prix * $rabais->rabais / 100);
+            $prix = $prixReduit;
         }
 
         if (view()->exists('chaussures.chaussure.modifier')) {
             return view('chaussures.chaussure.modifier', [
                 'chaussure' => $chaussure,
+                'listTypeChaussures' => $listTypeChaussures,
+                'rabais' => $rabais,
                 'pourcentage' => $pourcentage,
             ]);
         } else {
@@ -278,6 +288,7 @@ class ChaussuresController extends Controller
         $chaussure->couleurP = $request->input('couleurP');
         $chaussure->couleurS = $request->input('couleurS');
         $chaussure->genre = $request->input('genre');
+        $chaussure->id_list_types = $request->input('type-chaussures');
 
         $chaussure->save();
 
@@ -302,20 +313,37 @@ class ChaussuresController extends Controller
         // Récupérer le rabais pour cette chaussure s'il y en a un et en fonction de la date
         $rabais = Rabais::where('id_chaussure', $id)->where('expiration_rabais', '>', now())->first();
 
-        // Mettre à jour le rabais avec les données de la requête s'il existe déjà
-        Rabais::where('id_chaussure', $id)->update([
-            'rabais' => $request->input('rabais'),
-            'expiration_rabais' => $request->input('date'),
-        ]);
+        if (!$request->filled('rabais') && !$request->filled('daterabaisexpiration')) {
+            // Les deux champs sont vides, donc pas de rabais à appliquer
+        } else {
+            // Au moins un des champs est rempli, donc on procède avec la création ou la mise à jour du rabais
 
-        // Créer un nouveau rabais avec les données de la requête s'il n'existe pas déjà
-        if (!$rabais) {
-            $nouveauRabais = new Rabais();
-            $nouveauRabais->id_chaussure = $id;
-            $nouveauRabais->rabais = $request->input('rabais');
-            $nouveauRabais->expiration_rabais = $request->input('date');
-            $nouveauRabais->save();
+            if ($rabais) {
+                $request->validate([
+                    'rabais' => 'required_with:daterabaisexpiration',
+                    'daterabaisexpiration' => 'required_with:rabais',
+                ]);
+
+                // Mettre à jour le rabais avec les données de la requête s'il existe déjà
+                $rabais->rabais = $request->input('rabais');
+                $rabais->expiration_rabais = $request->input('daterabaisexpiration');
+                $rabais->save();
+            } else {
+                $request->validate([
+                    'rabais' => 'required_with:daterabaisexpiration',
+                    'daterabaisexpiration' => 'required_with:rabais',
+                ]);
+
+                // Créer un nouveau rabais avec les données de la requête s'il n'existe pas déjà
+                $nouveauRabais = new Rabais();
+                $nouveauRabais->id_chaussure = $id;
+                $nouveauRabais->rabais = $request->input('rabais');
+                $nouveauRabais->expiration_rabais = $request->input('daterabaisexpiration');
+                $nouveauRabais->save();
+            }
+
         }
+
 
         // Calculer le prix en prenant en compte le rabais s'il y en a un
         $pourcentage = null;

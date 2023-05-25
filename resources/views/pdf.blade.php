@@ -57,13 +57,13 @@
             </thead>
             <tbody>
                 @foreach ($commandes as $commande)
-                    <tr>
-                        <td class="py-4 px-4 text-sm">{{ $commande->chaussure->modele }}</td>
-                        <td class="py-4 px-4 text-sm">{{ $commande->chaussure->marque }}</td>
-                        <td class="py-4 px-4 text-sm">{{ $commande->chaussure->genre }}</td>
-                        <td class="py-4 px-4 text-sm">{{ $commande->status }}</td>
-                        <td class="py-4 px-4 text-sm">{{ $commande->montant }} CHF</td>
-                    </tr>
+                <tr>
+                    <td class="py-4 px-4 text-sm">{{$commande->chaussure->modele}}</td>
+                    <td class="py-4 px-4 text-sm">{{$commande->chaussure->marque}}</td>
+                    <td class="py-4 px-4 text-sm">{{$commande->chaussure->genre}}</td>
+                    <td class="py-4 px-4 text-sm">{{$commande->status}}</td>
+                    <td class="py-4 px-4 text-sm">{{$commande->montant}} CHF</td>
+                </tr>
                 @endforeach
             </tbody>
         </table>
@@ -72,7 +72,7 @@
             <table class="w-1/3">
                 <tr>
                     <td class="py-2 text-right pr-4">Total:</td>
-                    <td class="py-2 text-right">{{ $montant }} CHF</td>
+                    <td class="py-2 text-right">{{$montant}} CHF</td>
                 </tr>
             </table>
         </div>

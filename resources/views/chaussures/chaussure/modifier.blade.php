@@ -7,15 +7,9 @@
             <!-- Col -->
             <div class="w-full h-auto  hidden lg:block lg:w-5/12 bg-cover rounded-l-lg">
                 @if ($chaussure->image)
-                    @if (Storage::disk('public')->exists('storage/images/' . $chaussure->image->image_chaussure))
-                        <img src="{{ asset('storage/images/' . $chaussure->image->image_chaussure) }}" class="object-contain"
-                            alt="Image chaussure">
-                    @else
-                        <img src="images/{{ $chaussure->image->image_chaussure }}" class="object-contain"
-                            alt="Image chaussure">
-                    @endif
+                    <img src="{{ asset('storage/images/' . $chaussure->image->image_chaussure) }}" class="object-contain"
+                        alt="Image chaussure">
                 @endif
-
             </div>
             <!-- Col -->
             <div class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
@@ -129,8 +123,8 @@
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror
                             <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 </svg>

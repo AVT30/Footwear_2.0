@@ -1,6 +1,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('css/header.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
 
+
 <div class="" style="height:88px;">
     <!-- component -->
     <nav class="relative px-4 py-4 flex justify-between items-center bg-white">
@@ -108,36 +109,21 @@
                     </li>
                 </ul>
                 <div class="px-4 py-3">
-                    {{-- Vérifier si l'utilisateur n'est pas connecté ou n'est pas un admin --}}
-                    @if (Auth::user() || (Auth::user() && Auth::user()->role == 'admin'))
-                        <ul>
-                            <span class="text-red-900">Admin</span>
-                            <li>
-                                <a href="/creation"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Nouvelle
-                                    chaussure</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('modification') }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Gérer
-                                    chaussures</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('gereruser') }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Gérer
-                                    utilisateurs</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('gereravis') }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Gérer
-                                    Avis</a>
-                            </li>
-                        </ul>
-                    @endif
+                    {{-- un IF si il n'y a pas d'utilisateur connecté et que l'utilisateur n'est pas un admin  --}}
+                    <ul>
+                        <span class="text-red-900">Admin</span>
+                        <li>
+                            <a href="/creation"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Nouvelle
+                                chaussure</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('modification') }}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Gérer
+                                chaussures</a>
+                        </li>
+                    </ul>
                 </div>
-
-
-
             </div>
     </nav>
     {{-- Le contenu de l'hamburger --}}

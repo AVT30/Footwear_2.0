@@ -7,7 +7,9 @@
     </div>
     {{-- Carousel pour les chaussures --}}
     <div class="container mx-auto">
-        <h1 class="text-2xl font-bold mb-4">Voici les derniers articles que nous avons en vente !!!</h1>
+        <div class="titreflux">
+            <span>Nos dernières nouveautées</span>
+        </div>
         @include('carousel.chaussures')
     </div>
 @endsection

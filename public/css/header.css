@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* { box-sizing: border-box; }
+
+
+/********************************************************************
+############################ Burger Menu ############################
+********************************************************************/
+
+/*############# Parcourir #############*/
+.burgerParcourir{
+padding-top: 5%;
+padding-bottom: 5%;
+}
+
+/*############# Skate Shoes #############*/
+.skateshoes{
+  position: relative;
+  color: white;
+  border: 2px;
+  border-color: black;
+  transition: color 0.3s;
+  padding: 5px;
+}
+
+.skateshoes:hover{
+  position: relative;
+  color: black;
+}
+
+.imgSkateshoes{
+  opacity: 1;
+  transition: box-shadow 1s;
+  transition: opacity 0.1s;
+}
+
+.imgSkateshoes:hover{
+  opacity: 0.5;
+  box-shadow: 1px 1px 2px black, 0 0 25px wheat, 0 0 5px black;
+}
+
+.titreSkateshoes{
+  /*Positionnement*/
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /*Style*/
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: xx-large;
+  /*Paramètres*/
+  cursor: default;
+  pointer-events: none;
+}
+
+/*############# Sneakers #############*/
+
+.sneakersBurgerMenu{
+display: flex;
+position: relative;
+}
+
+.sneakerscontenaire{
+padding-left: 2.5px;
+padding-right: 5px;
+padding-bottom: 5px;
+  position: relative;
+  color: white;
+  border: 2px;
+  border-color: black;
+  transition: color 0.3s;
+  
+}
+
+.sneakerscontenaire:hover{
+padding-left: 2.5px;
+padding-right: 5px;
+padding-bottom: 5px;
+  position: relative;
+  color: white;
+  border: 2px;
+  border-color: black;
+  color: black;
+}
+
+.titresSneakers{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /*Style*/
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: x-large;
+  /*Paramètres*/
+  cursor: default;
+  pointer-events: none;
+  text-align: center;
+}
+
+.imgsSneakers {
+  opacity: 1;
+  transition: box-shadow 1s;
+  transition: opacity 0.1s;
+}
+
+.imgsSneakers:hover {
+  opacity: 0.5;
+  box-shadow: 1px 1px 2px black, 0 0 25px wheat, 0 0 5px black;
+}
+
+
+/*############# Toutes catégories #############*/
+
+
+
+/*############# Boutons #############*/
+.inscription{
+  display: flex;
+}

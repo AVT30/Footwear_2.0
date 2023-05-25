@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -11,6 +12,7 @@
     <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 </head>
+
 <body class="flex flex-col min-h-screen">
     <nav class="z-10 h-32 py-2">
         {{-- Ajout d'un include ici pour le header et le footer pour eviter la repetition de code  --}}
@@ -25,4 +27,5 @@
         @include('HeaderFooter.footer')
     </footer>
 </body>
+
 </html>

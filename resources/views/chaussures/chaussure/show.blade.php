@@ -6,9 +6,15 @@
             <div class="lg:w-4/5 mx-auto flex flex-wrap">
                 <div class="w-full h-auto bg-gray-400 lg:w-5/12 bg-cover rounded-l-lg flex lg:block">
                     @if ($chaussure->image)
-                        <img src="{{ asset('storage/images/' . $chaussure->image->image_chaussure) }}"
-                            class="object-cover w-full h-full" alt="Image chaussure">
+                        @if (Storage::disk('public')->exists('storage/images/' . $chaussure->image->image_chaussure))
+                            <img src="{{ asset('storage/images/' . $chaussure->image->image_chaussure) }}"
+                                class="object-contain" alt="Image chaussure">
+                        @else
+                            <img src="images/{{ $chaussure->image->image_chaussure }}" class="object-contain"
+                                alt="Image chaussure">
+                        @endif
                     @endif
+
                 </div>
                 <div class="w-full lg:w-1/2">
                     <form action="{{ route('panier_add', ['id' => $chaussure->id_chaussure]) }}" method="post"
@@ -221,22 +227,23 @@
                                 <h2 class="title-font mb-1 text-lg font-medium text-gray-900">Feedback</h2>
                                 <p class="mb-5 leading-relaxed text-gray-600">Nous voulons votre avis !!! Faites nous
                                     savoir ce que vous pensez de cet article</p>
-                                    <div class="mb-4">
-                                        <div class="flex items-center">
-                                            <label for="rating" class="mr-4">Note:</label>
-                                            <div class="flex">
-                                                <!-- Utilisation d'un tableau pour générer les étoiles dynamiquement -->
-                                                <div class="rating">
-                                                    <span class="star" data-value="1"></span>
-                                                    <span class="star" data-value="2"></span>
-                                                    <span class="star" data-value="3"></span>
-                                                    <span class="star" data-value="4"></span>
-                                                    <span class="star" data-value="5"></span>
-                                                </div>
-                                                <input name="rating" id="rating" value="" class="sr-only" required>
+                                <div class="mb-4">
+                                    <div class="flex items-center">
+                                        <label for="rating" class="mr-4">Note:</label>
+                                        <div class="flex">
+                                            <!-- Utilisation d'un tableau pour générer les étoiles dynamiquement -->
+                                            <div class="rating">
+                                                <span class="star" data-value="1"></span>
+                                                <span class="star" data-value="2"></span>
+                                                <span class="star" data-value="3"></span>
+                                                <span class="star" data-value="4"></span>
+                                                <span class="star" data-value="5"></span>
                                             </div>
+                                            <input name="rating" id="rating" value="" class="sr-only"
+                                                required>
                                         </div>
                                     </div>
+                                </div>
 
                                 <div class="mb-4">
                                     <label for="message" class="text-sm leading-7 text-gray-600 required">Message</label>

@@ -26,8 +26,8 @@
                                 <div class="flex justify-center relative rounded-lg overflow-hidden h-96 w-72">
                                     <div class="absolute inset-0 flex justify-center items-center">
                                         @if ($chaussure->image)
-                                            <img src="{{ asset('storage/images/' . $chaussure->image->image_chaussure) }}"
-                                                class="object-contain" alt="Image chaussure">
+                                        <img src="{{ url('images/' . $chaussure->image->image_chaussure) }}" class="object-contain" alt="Image chaussure">
+
                                         @endif
                                     </div>
                                     <div class="absolute flex flex-col top-0 right-0 p-3">

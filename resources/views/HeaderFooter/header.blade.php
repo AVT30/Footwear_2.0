@@ -152,7 +152,7 @@
             {{-- Catégorie "SkateShooes" --}}
             <div class="skateshoes">
                 <img class="imgSkateshoes" src="{{ asset('images/burgermenuskateshoes.jpg') }}" alt="">
-                <span class="titreSkateshoes">Skate Shoes</span>
+                <span class="titreSkateshoes">Skate shoes</span>
             </div>
             {{-- Sneakers" --}}
             <div class="sneakersBurgerMenu">
@@ -266,12 +266,12 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#"
+                                    <a href="/skate-shoes"
                                         class="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500 group gap-2">
                                         <span class="sr-only">sandales</span>
                                         <img class="object-cover h-7 w-7 flex space-x-5"
                                             src="{{ asset('icones/flip-flops.png') }}" alt="Sneakers">
-                                        <p>Sneakers de skate</p>
+                                        <p>Skate shoes</p>
                                     </a>
                                 </li>
                         </div>

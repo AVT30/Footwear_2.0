@@ -147,42 +147,44 @@
         <nav
             class="fixed top-0 left-0 bottom-0 flex flex-col w-6/6 max-w-sm py-6 px-3 bg-white border-r overflow-y-auto">
             <div class="burgerParcourir">
-                <h1>Parcourir</h1>
+                <h1 class="burgerParcourirText">Parcourir</h1>
             </div>
             {{-- Catégorie "SkateShooes" --}}
-            <div class="skateshoes">
-                <img class="imgSkateshoes" src="{{ asset('images/burgermenuskateshoes.jpg') }}" alt="">
-                <span class="titreSkateshoes">Skate shoes</span>
-            </div>
+            <a href="/skate-shoes">
+                <div class="skateshoes">
+                    <img class="imgSkateshoes" src="{{ asset('images/burgermenuskateshoes.jpg') }}" alt="">
+                    <span class="titreSkateshoes">Skate shoes</span>
+                </div>
+            </a>
             {{-- Sneakers" --}}
             <div class="sneakersBurgerMenu">
                 {{-- Catégorie "Basket Haute" --}}
-                <div class="sneakerscontenaire">
-                    <img class="imgsSneakers" src="{{ asset('images/burgermenubasse.jpg') }}" alt="">
-                    <span class="titresSneakers">Sneakers Basses</span>
-                </div>
+                <a href="/sneakers-basses">
+                    <div class="sneakerscontenaire">
+                        <img class="imgsSneakers" src="{{ asset('images/burgermenubasse.jpg') }}" alt="">
+                        <span class="titresSneakers">Sneakers Basses</span>
+                    </div>
+                </a>
                 {{-- Catégorie "Basket Basse" --}}
-                <div class="sneakerscontenaire">
-                    <img class="imgsSneakers" src="{{ asset('images/burgermenuhaute.jpg') }}" alt="">
-                    <span class="titresSneakers">Sneakers Hautes</span>
-                </div>
+                <a href="/sneakers-hautes">
+                    <div class="sneakerscontenaire">
+                        <img class="imgsSneakers" src="{{ asset('images/burgermenuhaute.jpg') }}" alt="">
+                        <span class="titresSneakers">Sneakers Hautes</span>
+                    </div>
+                </a>
             </div>
-            {{-- Toutes catégories --}}
-            <div class="skateshoes">
-                <img class="imgSkateshoes" src="{{ asset('images/burgermenuskateshoes.jpg') }}" alt="">
-                <span class="titresSneakers">Toutes catégories</span>
-            </div>
+
 
             <div class=" mt-auto">
                 {{-- Bouton s'inscrire --}}
                 <div class=" pt-6">
                     <a class="block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100"
-                        href="#">S'inscrire</a>
+                        href="/register">S'inscrire</a>
                 </div>
                 {{-- Bouton se connecter --}}
                 <div>
                     <a class="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700"
-                        href="#">Se connecter</a>
+                        href="/login">Se connecter</a>
                 </div>
             </div>
         </nav>

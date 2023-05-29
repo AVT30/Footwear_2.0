@@ -23,10 +23,10 @@
                                 <div class="flex flex-shrink-0 relative w-full sm:w-auto">
                                     <img src="{{ asset('storage/images/' . $chaussure->image->image_chaussure) }}"
                                         class="object-cover object-center w-full" alt="Image chaussure">
-                                    <div class="bg-gray-800 bg-opacity-10 absolute w-full h-full p-6">
-                                        <div class="flex h-full items-end pb-6">
+                                    <div class="bg-gray-800 bg-opacity-10 absolute w-full h-full ">
+                                        <div class="flex h-full items-end  justify-center bg-clip-content ">
                                             <h3
-                                                class="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white dark:text-gray-900">
+                                                class="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white dark:text-gray-900 titleshoes ">
                                                 {{ $chaussure->marque }} {{ $chaussure->modele }}</h3>
                                         </div>
                                     </div>

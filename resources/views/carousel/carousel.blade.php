@@ -1,12 +1,13 @@
 {{-- Carousel dans une blade à part pour purifier le code dans la page accueil --}}
-<div class="relative z-10 py-10 ">
-    <div class="hidden md:block flex-row overflow-hidden z-0">
-        <div id="carousel2" class="flex flex-no-wrap transition-all duration-500">
-            <img src="images/TEST.PNG" alt="Image 3" class="w-screen h-64 flex-shrink-0">
-            <img src="images/Banner1.png" alt="Image 3" class="w-screen h-64 flex-shrink-0">
-            <img src="images/Banner2.png" alt="Image 3" class="w-screen h-64 flex-shrink-0">
-            <img src="images/Banner3.png" alt="Image 3" class="w-screen h-64 flex-shrink-0">
-
+<div class="relative w-screen flex justify-center mx-auto items-center py-10 hidden md:flex">
+    <div class=" flex-row overflow-hidden z-0 ">
+        <div id="carousel2" class="flex flex-no-wrap w-screen transition-all duration-500">
+            <object data="images/Banner2.svg" class="w-screen h-auto h-64 flex-shrink-0"> </object>
+            <object data="images/Banner3.svg" class="w-screen h-auto flex-shrink-0"> </object>
+            <object data="images/Banner4.svg" class="w-screen h-auto flex-shrink-0"> </object>
+            <img src="images/Banner2.svg" alt="Image 2" class="w-screen h-64 flex-shrink-0">
+            <img src="images/Banner3.svg" alt="Image 3" class="w-screen h-64 flex-shrink-0">
+            <img src="images/Banner4.svg" alt="Image 4" class="w-screen h-64 flex-shrink-0">
         </div>
     </div>
 

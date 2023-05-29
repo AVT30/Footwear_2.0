@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('css/fluxcss.css') }}">
 
-<div class="flex items-center justify-center w-full h-full py-24 sm:py-8 px-4">
+<div class="flex items-center justify-center w-full h-full py-2 sm:py-2 px-0">
     <div class="w-full relative flex items-center justify-center">
         <button aria-label="slide backward" class="absolute z-30 left-0 ml-10 focus:outline-none" id="prev1">
             <!-- Flèche gauche -->

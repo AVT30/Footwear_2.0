@@ -5,9 +5,14 @@
 
 * { box-sizing: border-box; }
 
-.container {
+body::-webkit-scrollbar {
+  display: none;
+margin: 0;
+height: 100%;}
 
-}
+  body{
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */}
 
 .rating {
   display: flex;
@@ -111,4 +116,25 @@
   flex-wrap: wrap;
   align-items: center;
   box-shadow: 0 4px 30px rgba(0,0,0,.05);
+}
+
+.styleMenu{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: xx-large;
+  color: white;
+}
+
+.backgroundstylemenu{
+    background-color: #5272ff;
+    padding: 1.4%;
+}
+
+.catmenu{
+  text-decoration: underline;
+  border: 1px;
+}
+
+
+.catbox{
+border: black;
 }

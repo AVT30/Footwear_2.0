@@ -10,7 +10,7 @@ return [
     |
     */
     'inactive' => 'Votre compte est désactivé. Veuillez contacter l\'helpdesk.',
-    'failed' => 'Les données que vous avez entrées ne correspondent pas à ce que nous avons.',
+    'failed' => 'Vos identifiants ou votre mot de passe sont incorrectes',
     'password' => 'Votre mot de passe est incorrect',
     'throttle' => 'Trop de tentatives ont été effectuées. Veuillez patienter avant de pouvoir réessayer.',
 ];

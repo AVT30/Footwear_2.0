@@ -5,7 +5,17 @@
 
 * { box-sizing: border-box; }
 
-.titreflux{
+.contenaireflux{
     display: flex;
     justify-content: center;
+    background-color: #5272ffaf;
+    padding: 1%;
 }
+
+.titreflux{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: xx-large;
+  color: white;
+    font-weight: 800;
+}
+

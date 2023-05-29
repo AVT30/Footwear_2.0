@@ -1,12 +1,10 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('css/header.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
 
-<div class="" style="height:88px;">
+<div style="height:88px;">
     <!-- component -->
-    <nav class="relative px-4 py-4 flex justify-between items-center bg-white">
-        <a class="text-3xl font-bold leading-none" href="/accueil">
-            <img class="h-24" alt="logo" src="images/FootWear-removebg-preview (1).png">
-        </a>
+    <nav class="relative px-4 py-4 flex justify-between items-center bg-white ">
+
         <div class="lg:hidden">
             <button class="navbar-burger flex items-center text-blue-600 p-3">
                 <svg class="block h-4 w-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -15,6 +13,9 @@
                 </svg>
             </button>
         </div>
+        <a class="text-3xl font-bold leading-none" href="/accueil">
+            <img class="h-24" alt="logo" src="images/FootWear-removebg-preview (1).png">
+        </a>
         {{-- Barre de recherche --}}
         <ul
             class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2  lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
@@ -233,12 +234,12 @@
 
 
     {{-- //dexieme navbar pour le mega-menu --}}
-    <nav class="relative w-screen flex justify-center mx-auto items-center bg-gray-100 text-black h-6 drop-shadow-md"
+    <nav class="backgroundstylemenu relative w-screen flex justify-center mx-auto items-center bg-gray-100 text-black h-6 drop-shadow-md hidden md:flex"
         style="z-index:20">
         <!-- menu des produits -->
-        <div class="flex items-center self-center">
-            <div class="group">
-                <button class="px-5  group-hover:underline  group-hover:text-black">Homme
+        <div class="flex items-center self-center styleMenu ">
+            <div class="group ">
+                <button class="px-5 group-hover:bg-blue-300 catmenu">Homme
                 </button>
                 <div
                     class="hidden group-hover:flex flex-col absolute left-0 p-5 w-full bg-white text-black duration-300">
@@ -398,7 +399,7 @@
             </div> <!-- end of dropdown -->
 
             <div class="group">
-                <button class="px-5  group-hover:underline  group-hover:text-black">Femme
+                <button class="px-5  group-hover:bg-blue-300 catmenu">Femme
                 </button>
                 <div
                     class="hidden group-hover:flex flex-col absolute left-0 p-5 w-full bg-white text-black duration-300">
@@ -590,8 +591,8 @@
                 </div>
             </div> <!-- end of dropdown -->
 
-            <div class="group">
-                <button class="px-5  group-hover:underline  group-hover:text-black">Enfant
+            <div class="group catbox">
+                <button class="px-5  group-hover:bg-blue-300 catmenu">Enfant
                 </button>
                 <div
                     class="hidden group-hover:flex flex-col absolute left-0 p-5 w-full bg-white text-black duration-300">

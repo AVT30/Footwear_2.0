@@ -7,10 +7,9 @@
 
 
         @if ($chaussuresPagineesParType['Sneakers hautes']->count() == 0)
-            <div class="mt-10 text-center">
-                <h2 class="text-md py-4 font-bold tracking-tight sm:text-5xl">
-                    Pas de chaussures "Sneakers hautes" pour l'instant
-                </h2>
+            <div class="max-w-xl py-5">
+                <h1 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Sneakers hautes</h1>
+                <p class="mt-2 text-sm text-gray-500"> Pas de chaussures "Sneakers hautes" pour l'instant</p>
             </div>
         @endif
 

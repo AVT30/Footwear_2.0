@@ -110,7 +110,7 @@
                 </ul>
                 <div class="px-4 py-3">
                     {{-- Vérifier si l'utilisateur n'est pas connecté ou n'est pas un admin --}}
-                    @if (Auth::user() || (Auth::user() && Auth::user()->role == 'admin'))
+                    @if ((Auth::user() && Auth::user()->role == 'admin'))
                         <ul>
                             <span class="text-red-900">Admin</span>
                             <li>
@@ -282,7 +282,7 @@
                             <h3 class="mb-4 text-xl">Bottes</h3>
                             <ul class="mt-4 text-[15px] space-y-3">
                                 <li>
-                                    <a href="#"
+                                    <a href="{{ route('affiche-rabais') }}"
                                         class="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500 group gap-2">
                                         <span class="sr-only">Bottines à lacet</span>
                                         <img class="object-cover h-7 w-7 flex space-x-5"

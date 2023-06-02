@@ -90,6 +90,24 @@ class ImageTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'id_chaussure' => 13,
+                'image_chaussure' => 'FORUM MID black.webp', // Remplacez par le chemin d'accès à l'image spécifique
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_chaussure' => 14,
+                'image_chaussure' => 'FORUM MID white.webp', // Remplacez par le chemin d'accès à l'image spécifique
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_chaussure' => 15,
+                'image_chaussure' => 'CHUNKY black1.webp', // Remplacez par le chemin d'accès à l'image spécifique
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
             // Ajoutez d'autres entrées d'images pour d'autres chaussures
         ];
 

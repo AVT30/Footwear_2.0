@@ -23,13 +23,13 @@ class PanierController extends Controller
 
     public function add($id_chaussure, Request $request)
     {
-        // Validate the user input
+        // Validation des inputs
         $validator = Validator::make($request->all(), [
             'taille' => 'required',
             'quantity' => 'required|numeric|min:1',
         ]);
 
-        // If the validation fails, redirect back to the form with errors
+        // erreur si les inputs ne sont pas respectés
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)

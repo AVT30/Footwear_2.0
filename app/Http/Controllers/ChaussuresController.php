@@ -73,6 +73,43 @@ class ChaussuresController extends Controller
         $chaussures = Chaussure::orderBy('created_at', 'desc')->take(10)->get();
     }
 
+    public function afficheRabais()
+    {
+
+        $chaussures = Chaussure::all();
+
+
+        //ici une foreach pour afficher l'image de chaque chaussure qui est dans la liste à la vue
+        foreach ($chaussures as $chaussure) {
+            $images = ImageChaussure::where('id_chaussure', $chaussure->id_chaussure)->get();
+            $chaussure->image = $images->first();
+
+            // Calculer le rabais et le prix réduit pour chaque chaussure
+            $rabais = Rabais::where('id_chaussure', $chaussure->id_chaussure)->where('expiration_rabais', '>', now())->first();
+
+            $pourcentage = null;
+            $prix = $chaussure->prix;
+
+            if ($rabais) {
+                $pourcentage = $rabais->rabais;
+                $prixReduit = $prix - ($prix * $rabais->rabais / 100);
+                $prix = $prixReduit;
+            }
+
+            // Assigner les valeurs correspondantes à chaque chaussure
+            $chaussure->pourcentage = $pourcentage;
+            $chaussure->prix = $prix;
+        }
+
+        //pour afficher la page de création de chaussure avec listtypechaussures pour attribuer la type à la chaussure
+        $listTypeChaussures = listTypeChaussures::all();
+        return view('affiche-rabais', [
+            'chaussures' => $chaussures,
+            'listTypeChaussures' => $listTypeChaussures,
+        ]);
+    }
+
+
     public function show(Request $request)
     {
 
@@ -274,6 +311,8 @@ class ChaussuresController extends Controller
             abort(404);
         }
     }
+
+
 
     public function modifierChaussure(Request $request)
     {

@@ -20,17 +20,19 @@
                     <div class="flex flex-shrink-0 relative w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
                         <div class="aspect-w-1 aspect-h-1">
                             @if ($chaussure->image)
-                                <div class="flex flex-shrink-0 relative w-full sm:w-auto">
-                                    <img src="{{ asset('storage/images/' . $chaussure->image->image_chaussure) }}"
-                                        class="object-cover object-center w-full" alt="Image chaussure">
-                                    <div class="bg-gray-800 bg-opacity-10 absolute w-full h-full ">
-                                        <div class="flex h-full items-end  justify-center bg-clip-content ">
-                                            <h3
-                                                class="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white dark:text-gray-900 titleshoes ">
-                                                {{ $chaussure->marque }} {{ $chaussure->modele }}</h3>
+                                <a href="{{ route('chaussures.show', $chaussure->id_chaussure) }}">
+                                    <div class="flex flex-shrink-0 relative w-full sm:w-auto">
+                                        <img src="{{ asset('storage/images/' . $chaussure->image->image_chaussure) }}"
+                                            class="object-cover object-center w-full" alt="Image chaussure">
+                                        <div class="bg-gray-800 bg-opacity-10 absolute w-full h-full ">
+                                            <div class="flex h-full items-end  justify-center bg-clip-content ">
+                                                <h3
+                                                    class="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white dark:text-gray-900 titleshoes ">
+                                                    {{ $chaussure->marque }} {{ $chaussure->modele }}</h3>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             @endif
                         </div>
                     </div>

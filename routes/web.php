@@ -42,6 +42,10 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 // Page pour une chaussure en particulier en cliquant dessus
 Route::get('/chaussures/{id}', [ChaussuresController::class, 'show'])->name('chaussures.show');
 
+
+// Page pour une chaussure en particulier en cliquant dessus
+Route::get('/afficheRabais', [ChaussuresController::class, 'afficheRabais'])->name('affiche-rabais');
+
 // Modifier une chaussure en particulier en cliquant dessus
 Route::put('/chaussures/{id}/modifierChaussure', [ChaussuresController::class, 'modifierChaussure'])->name('chaussures.modifierChaussure');
 
@@ -104,8 +108,10 @@ Route::get('/reload-captcha', [RegisteredUserController::class, 'reloadCaptcha']
 //pour le pdf de la commande (je prends le numero de commande car comme ca je prends toutes les chaussures qui concernent la commande)
 Route::get('/commande/pdf/{numeroCommande}', [CommandeController::class, 'genererPDF'])->name('commande.pdf');
 
+
+// Les routes réservées aux administrateurs
 Route::group(['middleware' => ['auth', 'admin']], function () {
-    // Les routes réservées aux administrateurs
+
 
     //page pour la page création de chaussre et pour faciliter l'entrée de donnée pour l'admin
     Route::post('/creation', [ChaussuresController::class, 'creation'])->name('chaussures.creation');
@@ -115,6 +121,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     //page pour modification
     Route::get('/modification', [ChaussuresController::class, 'modification'])->name('modification');
+
 
     //page pour une chaussure en particulier en cliquant dessuss
     Route::get('/chaussures/{id}/modifier', [ChaussuresController::class, 'modifier'])->name('chaussures.modifier');

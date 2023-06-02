@@ -37,7 +37,7 @@ class RabaisTableSeeder extends Seeder
             ],
             [
                 'id_chaussure' => 4, // L'ID de la première chaussure que vous avez insérée
-                'rabais' => 35,
+                'rabais' => 30,
                 //pour les dates des rabais
                 'expiration_rabais' => Carbon::now()->addDays(10),
                 'created_at' => now(),
@@ -45,7 +45,7 @@ class RabaisTableSeeder extends Seeder
             ],
             [
                 'id_chaussure' => 8, // L'ID de la première chaussure que vous avez insérée
-                'rabais' => 20,
+                'rabais' => 30,
                 //pour les dates des rabais
                 'expiration_rabais' => Carbon::now()->addDays(3),
                 'created_at' => now(),
@@ -62,6 +62,14 @@ class RabaisTableSeeder extends Seeder
             [
                 'id_chaussure' => 11, // L'ID de la première chaussure que vous avez insérée
                 'rabais' => 40,
+                //pour les dates des rabais
+                'expiration_rabais' => Carbon::now()->addDays(1),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_chaussure' => 14, // L'ID de la première chaussure que vous avez insérée
+                'rabais' => 30,
                 //pour les dates des rabais
                 'expiration_rabais' => Carbon::now()->addDays(1),
                 'created_at' => now(),

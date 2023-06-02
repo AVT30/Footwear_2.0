@@ -61,9 +61,10 @@ class StripeController extends Controller
                 $id_adresse = $adresse->id_adresse;
             }
         } else {
-            $id_adresse = $request->input('id_adresse');
+            // Si aucune adresse créée, récupérer l'ID de la deniere adersse crée par l'utilisateur
+            $adresse = DB::table('adresses')->where('id_utilisateur', Auth::id())->latest()->first();
+            $id_adresse = $adresse->id_adresse;
         }
-
         try {
             // Code de paiement avec Stripe
 
@@ -102,6 +103,7 @@ class StripeController extends Controller
                 DB::table('stocks')->where('id_stock', $id_stock)->decrement('stock', $quantity);
 
                 // Création de la commande
+
                 DB::table('commandes')->insert([
                     'id_utilisateur' => Auth::id(),
                     'id_stock' => $id_stock,

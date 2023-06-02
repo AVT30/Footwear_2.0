@@ -45,15 +45,21 @@
                               </p>
                             </div>
                             <div class="grid grid-cols-1">
-                            <div class="flex items-center justify-start">
-                                <p class="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
-                                    @if($chaussure->pourcentage)
-                                        <span class="text-lg text-red-600">{{ $chaussure->prix}} CHF <span class="line-through text-gray-500 ">{{ $chaussure->prix / (1 - ($chaussure->pourcentage / 100)) }} CHF</span></span>
-                                    @else
-                                        <span class="text-lg">{{ $chaussure->prix}} CHF</span>
-                                    @endif
-                                </p>
-                            </div>
+                                <div class="flex items-center justify-start">
+                                    <p class="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
+                                        @if ($chaussure->pourcentage)
+                                            <span class="text-lg text-red-600">
+                                                {{ number_format($chaussure->prix, 2) }} CHF
+                                                <span class="line-through text-gray-500">
+                                                    {{ number_format($chaussure->prix / (1 - $chaussure->pourcentage / 100), 2) }} CHF
+                                                </span>
+                                            </span>
+                                        @else
+                                            <span class="text-lg">{{ number_format($chaussure->prix, 2) }} CHF</span>
+                                        @endif
+                                    </p>
+                                </div>
+
                             </div>
                           </div>
                         </a>

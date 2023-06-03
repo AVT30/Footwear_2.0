@@ -183,7 +183,7 @@
                     </form>
                 </div>
                 <div class="col-span-1 hidden lg:block">
-                    <div class="full-grid h-96">
+                    <div class="full-grid ">
                         <div class="ml-8">
                             <div class=" max-w-xl mx-auto 0">
                                 <ul class="shadow-box">
@@ -211,22 +211,19 @@
 
                     </div>
                 </div>
-            </div>
-            <div class="lg:w-1/1 mx-auto flex flex-wrap w-full">
-                @if (Auth::check())
-                    <form action="{{ route('avisuser', ['id' => $chaussure->id_chaussure]) }}" method="get">
-                        @csrf
-                        <div class=" mx-auto w-full mt-16 border rounded-lg bg-white p-8">
-                            <div class="w-full flex flex-col">
-                                <h2 class="title-font mb-1 text-lg font-medium text-gray-900">Feedback</h2>
-                                <p class="mb-5 leading-relaxed text-gray-600">Nous voulons votre avis !!! Faites nous
-                                    savoir ce que vous pensez de cet article</p>
+                <div class="lg:w-1/1 mx-auto flex flex-wrap w-full px-3">
+                    @if (Auth::check())
+                        <form action="{{ route('avisuser', ['id' => $chaussure->id_chaussure]) }}" method="get">
+                            @csrf
+                            <div class="mx-auto w-full mt-16 bg-white rounded-lg shadow-lg">
+                                <div class="p-8">
+                                    <h2 class="text-lg font-medium text-gray-900">Feedback</h2>
+                                    <p class="mb-5 leading-relaxed text-gray-600">Nous voulons votre avis !!! Faites nous savoir ce que vous pensez de cet article</p>
                                     <div class="mb-4">
                                         <div class="flex items-center">
-                                            <label for="rating" class="mr-4">Note:</label>
                                             <div class="flex">
-                                                <!-- Utilisation d'un tableau pour générer les étoiles dynamiquement -->
-                                                <div class="rating">
+                                                <label for="rating" class="mr-4 py-1">Note:</label>
+                                                <div class="rating" style="font-size: 20px; height:30px;">
                                                     <span class="star" data-value="1"></span>
                                                     <span class="star" data-value="2"></span>
                                                     <span class="star" data-value="3"></span>
@@ -237,48 +234,41 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                <div class="mb-4">
-                                    <label for="message" class="text-sm leading-7 text-gray-600 required">Message</label>
-                                    <textarea id="message" name="message"
-                                        class="w-full px-4 py-2 mt-2 text-base text-gray-700 bg-gray-100 border  rounded-lg focus:outline-none focus:border-gray-500 @error('message') border-red-500 @enderror"
-                                        required maxlength="100"></textarea>
-                                </div>
-                                <div class="mt-4">
-                                    <x-input-label for="captcha" :value="__('Captcha')" />
-                                    <div class="captcha flex items-center">
-                                        <span>{!! captcha_img() !!}</span>
+                                    <div class="mb-4">
+                                        <label for="message" class="text-sm leading-7 text-gray-600 required">Message</label>
+                                        <textarea id="message" name="message" class="w-full px-4 py-2 mt-2 text-base text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 @error('message') border-red-500 @enderror" required maxlength="100"></textarea>
                                     </div>
+                                    <div class="mb-4">
+                                        <x-input-label for="captcha" :value="__('Captcha')" />
+                                        <div class="captcha flex items-center">
+                                            <span>{!! captcha_img() !!}</span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <x-input-label for="captcha_input" :value="__('Captcha Input')" />
+                                        <x-text-input id="captcha_input" class="block mt-1 w-full border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500" type="text" name="captcha" required />
+                                        <x-input-error :messages="$errors->get('captcha')" class="mt-2" />
+                                    </div>
+                                    <button class="block w-full py-2 px-4 text-lg text-white bg-indigo-500 hover:bg-indigo-600 rounded-lg focus:outline-none focus:bg-indigo-600" type="submit">Poster</button>
+                                    <p class="mt-3 text-xs text-gray-500">N'hésitez pas à nous contacter sur nos réseaux.</p>
                                 </div>
-
-                                <div class="mt-4">
-                                    <x-input-label for="captcha_input" :value="__('Captcha Input')" />
-                                    <x-text-input id="captcha_input" class="block mt-1 w-full" type="text"
-                                        name="captcha" required />
-                                    <x-input-error :messages="$errors->get('captcha')" class="mt-2" />
-                                </div>
-                                <button
-                                    class="rounded border-0 bg-indigo-500 py-2 px-6 text-lg text-white hover:bg-indigo-600 focus:outline-none">Poster</button>
-                                <p class="mt-3 text-xs text-gray-500">N'hesitez pas à nous contacter sur nos réseaux.</p>
                             </div>
-                        </div>
-
-                    </form>
-                @else
-                    <div class="max-w-xl mx-auto mt-16 flex w-full flex-col rounded-lg bg-white p-8">
-                        <p>Vous devez être connecté pour poster un avis. Connectez-vous !!! </p>
-                        <form action="{{ route('login') }}">
-                            <button type="submit"
-                                class="rounded border-0 bg-indigo-500 py-2 px-6 text-lg text-white hover:bg-indigo-600 focus:outline-none justify-center">Se
-                                connecter</button>
                         </form>
-                        <p class="mt-3 text-xs text-gray-500"></p>
-                    </div>
-                @endif
+                    @else
+                        <div class="max-w-xl mx-auto mt-16 flex w-full flex-col rounded-lg bg-white p-8">
+                            <p>Vous devez être connecté pour poster un avis. Connectez-vous !!! </p>
+                            <form action="{{ route('login') }}">
+                                <button type="submit" class="rounded border-0 bg-indigo-500 py-2 px-6 text-lg text-white hover:bg-indigo-600 focus:outline-none justify-center">Se connecter</button>
+                            </form>
+                            <p class="mt-3 text-xs text-gray-500"></p>
+                        </div>
+                    @endif
+                </div>
+
+
             </div>
+
         </div>
-    </div>
-    </div>
     </div>
     <style>
         /* Style pour les étoiles */

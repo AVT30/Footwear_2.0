@@ -56,7 +56,7 @@
                                     <span class="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
 
                                     <a href="#"
-                                        class="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white"
+                                        class="text-sm font-medium text-black underline hover:no-underline dark:text-white"
                                         onclick="openPopup()">{{ $totalAvis }} Avis</a>
 
                                     <!-- Contenu du pop-up -->

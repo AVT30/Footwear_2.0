@@ -14,7 +14,7 @@
             </button>
         </div>
         <a class="text-3xl font-bold leading-none" href="/accueil">
-            <img class="h-24" alt="logo" src="images/FootWear-removebg-preview (1).png">
+            <img class="h-24" alt="logo" src="{{ asset('images/FootWear-removebg-preview (1).png') }}">
         </a>
         {{-- Barre de recherche --}}
         <ul
@@ -110,7 +110,7 @@
                 </ul>
                 <div class="px-4 py-3">
                     {{-- Vérifier si l'utilisateur n'est pas connecté ou n'est pas un admin --}}
-                    @if ((Auth::user() && Auth::user()->role == 'admin'))
+                    @if (Auth::user() && Auth::user()->role == 'admin')
                         <ul>
                             <span class="text-red-900">Admin</span>
                             <li>

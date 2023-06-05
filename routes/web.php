@@ -12,7 +12,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\GererUserController;
 use App\Http\Controllers\GererAvisController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CommandeController;
+use App\Http\Controllers\GerercommandeController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,19 +40,25 @@ Route::get('/accueil', [Controller::class, 'index'])->name('accueil');
 //la search bar
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 
+//page contact
+Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
 
 // Page pour une chaussure en particulier en cliquant dessus
 Route::get('/chaussures/{id}', [ChaussuresController::class, 'show'])->name('chaussures.show');
 
 
-// Page pour une chaussure en particulier en cliquant dessus
-Route::get('/afficheRabais', [ChaussuresController::class, 'afficheRabais'])->name('affiche-rabais');
+// Page pour banniere rabais
+Route::get('/afficheRabais', [ChaussuresController::class, 'afficherabais'])->name('affiche-rabais');
 
-// Modifier une chaussure en particulier en cliquant dessus
-Route::put('/chaussures/{id}/modifierChaussure', [ChaussuresController::class, 'modifierChaussure'])->name('chaussures.modifierChaussure');
 
-// supprimer une chaussure en particulier en cliquant dessus
-Route::delete('/chaussures/{id}/supprimer', [ChaussuresController::class, 'destroy'])->name('chaussures.supprimer');
+// Page pour banniere prix imbatable
+Route::get('/priximbatables', [ChaussuresController::class, 'priximbatables'])->name('priximbatables');
+
+// Page pour paires exeptionnels
+Route::get('/pairesexeptionels', [ChaussuresController::class, 'pairesexeptionels'])->name('pairesexeptionels');
+
+
+
 
 //code  pour  une page est accessible seulement connecté
 Route::get('/whislist', [WhislistController::class, 'whislist'])->middleware(['auth', 'verified'])->name('whislist');
@@ -65,8 +73,6 @@ Route::post('/panier/add/{id}', [PanierController::class, 'add'])->name('panier_
 //page panier pour supprimer les articles du panier
 Route::get('/panier/supprimer/{id}', [PanierController::class, 'supprimerArticle'])->name('supprimerArticle');
 
-//page checkout
-Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 
 //page avis
 Route::get('/avisuser/{id}', [AvisController::class, 'avisuser'])->name('avisuser');
@@ -122,6 +128,12 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     //page pour modification
     Route::get('/modification', [ChaussuresController::class, 'modification'])->name('modification');
 
+    // Modifier une chaussure en particulier en cliquant dessus
+    Route::put('/chaussures/{id}/modifierChaussure', [ChaussuresController::class, 'modifierChaussure'])->name('chaussures.modifierChaussure');
+
+    // supprimer une chaussure en particulier en cliquant dessus
+    Route::delete('/chaussures/{id}/supprimer', [ChaussuresController::class, 'destroy'])->name('chaussures.supprimer');
+
 
     //page pour une chaussure en particulier en cliquant dessuss
     Route::get('/chaussures/{id}/modifier', [ChaussuresController::class, 'modifier'])->name('chaussures.modifier');
@@ -129,8 +141,18 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     //gérér utilisateurs
     Route::get('/gereruser', [GererUserController::class, 'utilisateurs'])->name('gereruser');
 
+    //logique pour gérer les roles des utilisateurs
+    Route::put('/gereruser/{id}', [GererUserController::class, 'update'])->name('gereruser.update');
+
     //gérér avis
     Route::get('/gereravis', [GererAvisController::class, 'avis'])->name('gereravis');
+
+
+    //gérér avis
+    Route::get('/gerercommande', [GerercommandeController::class, 'gerercommande'])->name('gerercommande');
+
+    // Logique pour gérer le statut de la commande
+    Route::put('/gerercommande/{id}', [GerercommandeController::class, 'update'])->name('commande.update');
 
     //gerer l'activation et désactivation des comptes users
     Route::put('/gerer-users/activer/{id}', [GererUserController::class, 'activer'])->name('gerer-users.activer');

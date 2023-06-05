@@ -1,6 +1,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('css/header.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
 
+
 <div style="height:88px;">
     <!-- component -->
     <nav class="relative px-4 py-4 flex justify-between items-center bg-white ">
@@ -88,7 +89,7 @@
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Commandes</a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ route('contact') }}"
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Aide
                             & contact</a>
                     </li>
@@ -109,7 +110,7 @@
                     </li>
                 </ul>
                 <div class="px-4 py-3">
-                    {{-- Vérifier si l'utilisateur n'est pas connecté ou n'est pas un admin --}}
+                    {{-- Vérifier si l'utilisateur n'est pas connecté et est un admin --}}
                     @if (Auth::user() && Auth::user()->role == 'admin')
                         <ul>
                             <span class="text-red-900">Admin</span>
@@ -132,6 +133,10 @@
                                 <a href="{{ route('gereravis') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Gérer
                                     Avis</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('gerercommande') }}"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Gérer commandes</a>
                             </li>
                         </ul>
                     @endif
@@ -174,19 +179,20 @@
                 </a>
             </div>
 
-
-            <div class=" mt-auto">
-                {{-- Bouton s'inscrire --}}
-                <div class=" pt-6">
-                    <a class="block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100"
-                        href="/register">S'inscrire</a>
+            @if (!Auth::check())
+                <div class=" mt-auto">
+                    {{-- Bouton s'inscrire --}}
+                    <div class=" pt-6">
+                        <a class="block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100"
+                            href="/register">S'inscrire</a>
+                    </div>
+                    {{-- Bouton se connecter --}}
+                    <div>
+                        <a class="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700"
+                            href="/login">Se connecter</a>
+                    </div>
                 </div>
-                {{-- Bouton se connecter --}}
-                <div>
-                    <a class="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700"
-                        href="/login">Se connecter</a>
-                </div>
-            </div>
+            @endif
         </nav>
     </div>
     </body>
@@ -236,29 +242,28 @@
 
 
     {{-- //dexieme navbar pour le mega-menu --}}
-    <nav class="backgroundstylemenu relative w-screen flex justify-center mx-auto items-center bg-gray-100 text-black h-6 drop-shadow-md hidden md:flex"
+    <nav class="backgroundstylemenu relative w-screen  justify-center mx-auto items-center bg-gray-100 text-black h-6 drop-shadow-md hidden md:flex"
         style="z-index:20">
         <!-- menu des produits -->
         <div class="flex items-center self-center styleMenu ">
             <div class="group "><a href="/sneakers-hautes">
-                    <button class="px-5 group-hover:bg-blue-300 catmenu">Sneakers hautes
+                    <button class="px-5 group-hover:bg-blue-900 ">Sneakers hautes
                     </button>
                 </a>
             </div>
             <div class="group "><a href="/sneakers-basses">
-                    <button class="px-5 group-hover:bg-blue-300 catmenu">Sneakers basses
+                    <button class="px-5 group-hover:bg-blue-900 ">Sneakers basses
                     </button>
                 </a>
             </div>
-            <div class="group "><a href="/skate-shoes">
-                    <button class="px-5 group-hover:bg-blue-300 catmenu">Skate shoes
+            <div class="group "><a href="/sneakers-skate">
+                    <button class="px-5 group-hover:bg-blue-900 ">Skate shoes
                     </button>
                 </a>
             </div>
 
         </div>
+    </nav>
 </div>
-
-</nav>
 
 </div>

@@ -5,19 +5,19 @@
             <a href="/afficheRabais" class="w-full h-auto flex-shrink-0">
                 <img src="images/Banner2.svg" alt="Image 2" class="w-full h-auto flex-shrink-0">
             </a>
-            <a href="/afficheRabais" class="w-full h-auto flex-shrink-0">
+            <a href="/priximbatables" class="w-full h-auto flex-shrink-0">
                 <img src="images/Banner3.svg" alt="Image 3" class="w-full h-auto flex-shrink-0">
             </a>
-            <a href="/afficheRabais" class="w-full h-auto flex-shrink-0">
+            <a href="/pairesexeptionels" class="w-full h-auto flex-shrink-0">
                 <img src="images/Banner4.svg" alt="Image 4" class="w-full h-auto flex-shrink-0">
             </a>
             <a href="/afficheRabais">
                 <object data="images/Banner2.svg" class="w-full h-auto flex-shrink-0"></object>
             </a>
-            <a href="/afficheRabais">
+            <a href="/priximbatables">
                 <object data="images/Banner3.svg" class="w-full h-auto flex-shrink-0"></object>
             </a>
-            <a href="/afficheRabais">
+            <a href="/pairesexeptionels">
                 <object data="images/Banner4.svg" class="w-full h-auto flex-shrink-0"></object>
             </a>
         </div>

@@ -86,7 +86,17 @@
                                         <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                                             {{ $user->genre }}</td>
                                         <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                            {{ $user->role }}</td>
+                                            <form action="{{ route('gereruser.update', $user->id_utilisateur) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <select name="role" class="form-select" onchange="this.form.submit()">
+                                                    @foreach (['admin', 'user'] as $role)
+                                                        <option value="{{ $role }}" {{ $user->role === $role ? 'selected' : '' }}>
+                                                            {{ $role }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </form></td>
                                         <td class="px-4 py-4 text-sm whitespace-nowrap">
                                             @if ($user->isActive == true)
                                                 <div class="flex items-center gap-x-6">

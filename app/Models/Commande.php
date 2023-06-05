@@ -11,6 +11,8 @@ class Commande extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id_commande';
+
     protected $fillable = ['id_utilisateur', 'id_stock'];
 
     public function User()

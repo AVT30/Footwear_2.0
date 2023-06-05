@@ -14,8 +14,7 @@
         @endif
 
         <!-- Deuxième partie: chaussures -->
-        <div
-            class="col-span-4 sm:col-span-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-x-4 lg:gap-x-96">
+        <div class="col-span-4 sm:col-span-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-x-4 lg:gap-x-96">
             @if ($chaussuresPagineesParType['Sneakers basses']->count() > 0)
                 @foreach ($chaussuresPagineesParType['Sneakers basses'] as $chaussure)
                     <div class="relative mx-auto w-80">

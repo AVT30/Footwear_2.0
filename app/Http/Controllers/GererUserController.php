@@ -32,6 +32,15 @@ class GererUserController extends Controller
         ]);
     }
 
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->role = $request->input('role');
+        $user->save();
+
+        return redirect()->back()->with('success', 'Statut de la commande mis à jour avec succès !');
+    }
+
     //Activer les utilisateurs qui sont désactivé
     public function activer($id)
     {

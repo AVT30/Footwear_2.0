@@ -8,9 +8,8 @@
 
         <!-- Deuxième partie: chaussures -->
         <div class="col-span-4 sm:col-span-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-x-96">
-            @if (count($chaussuresAvecRabais) > 0)
-                @foreach ($chaussuresAvecRabais as $chaussure)
-                    @if ($chaussure->pourcentage)
+            @if (count($chaussures) > 0)
+                @foreach ($chaussures as $chaussure)
                         <div class="relative mx-auto w-80">
                             <a href="{{ route('chaussures.show', $chaussure->id_chaussure) }}"
                                 class="relative inline-block duration-300 ease-in-out transition-transform transform hover:-translate-y-2 w-full">
@@ -78,7 +77,6 @@
                                 </div>
                             </a>
                         </div>
-                    @endif
                 @endforeach
             @endif
         </div>

@@ -6,7 +6,7 @@
         @include('chaussures.filtre')
 
 
-        @if ($chaussuresPagineesParType['Sneakers de skate']->count() == 0)
+        @if ($chaussuresPagineesParType['Sneakers skate']->count() == 0)
         <div class="max-w-xl py-5">
             <h1 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Skate shoes</h1>
             <p class="mt-2 text-sm text-gray-500"> Pas de chaussures "Skate shoes" pour l'instant</p>
@@ -16,8 +16,8 @@
         <!-- Deuxième partie: chaussures -->
         <div
             class="col-span-4 sm:col-span-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-x-4 lg:gap-x-96">
-            @if ($chaussuresPagineesParType['Sneakers de skate']->count() > 0)
-                @foreach ($chaussuresPagineesParType['Sneakers de skate'] as $chaussure)
+            @if ($chaussuresPagineesParType['Sneakers skate']->count() > 0)
+                @foreach ($chaussuresPagineesParType['Sneakers skate'] as $chaussure)
                     <div class="relative mx-auto w-80">
                         <a href="{{ route('chaussures.show', $chaussure->id_chaussure) }}"
                             class="relative inline-block duration-300 ease-in-out transition-transform transform hover:-translate-y-2 w-full">
@@ -96,9 +96,9 @@
             @endif
         </div>
 
-        @if ($chaussuresPagineesParType['Sneakers de skate']->count() > 0)
+        @if ($chaussuresPagineesParType['Sneakers skate']->count() > 0)
             <div class="col-span-12 flex justify-center py-4">
-                {{ $chaussuresPagineesParType['Sneakers de skate']->links() }}
+                {{ $chaussuresPagineesParType['Sneakers skate']->links() }}
             </div>
         @endif
 

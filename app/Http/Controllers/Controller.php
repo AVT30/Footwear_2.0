@@ -22,7 +22,6 @@ use Stripe\Stripe;
 use Stripe\Charge;
 use App\Models\Whishlist;
 use Illuminate\View\View;
-use Cart;
 
 class Controller extends BaseController
 {
@@ -31,6 +30,7 @@ class Controller extends BaseController
 
     public function index()
     {
+        //pour afficher les derniers articles ajoutés sur notre site(flux rss)
         $chaussures = Chaussure::orderBy('created_at', 'desc')->take(10)->get();
 
         foreach ($chaussures as $chaussure) {

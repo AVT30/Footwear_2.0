@@ -67,15 +67,48 @@ class ChaussuresController extends Controller
     }
 
 
-    //affichage flux chaussures dans l'acceuil
-    public function accueil()
+
+    public function afficherabais()
     {
-        $chaussures = Chaussure::orderBy('created_at', 'desc')->take(10)->get();
+        //pour affiches toutes les paires avec des rabais avec la banière rabais en page d'accueil
+        $chaussures = Chaussure::all();
+
+
+        $chaussuresAvecRabais = [];
+
+        foreach ($chaussures as $chaussure) {
+            $images = ImageChaussure::where('id_chaussure', $chaussure->id_chaussure)->get();
+            $chaussure->image = $images->first();
+
+            // Calculer le rabais et le prix réduit pour chaque chaussure
+            $rabais = Rabais::where('id_chaussure', $chaussure->id_chaussure)->where('expiration_rabais', '>', now())->first();
+
+            $pourcentage = null;
+            $prix = $chaussure->prix;
+
+            if ($rabais) {
+                $pourcentage = $rabais->rabais;
+                $prixReduit = $prix - ($prix * $rabais->rabais / 100);
+                $prix = $prixReduit;
+
+                // Ajouter la chaussure à la liste des chaussures avec rabais
+                $chaussuresAvecRabais[] = $chaussure;
+            }
+
+            // Assigner les valeurs correspondantes à chaque chaussure
+            $chaussure->pourcentage = $pourcentage;
+            $chaussure->prix = $prix;
+        }
+        // Passer la liste des chaussures avec rabais à la vue
+        return view('affiche-rabais', [
+            'chaussuresAvecRabais' => $chaussuresAvecRabais,
+        ]);
     }
 
-    public function afficheRabais()
+    public function priximbatables()
     {
 
+        //pour affiches toutes les paires avec des prix bas avec la banière prix imbatables en page d'accueil
         $chaussures = Chaussure::all();
 
 
@@ -86,6 +119,7 @@ class ChaussuresController extends Controller
 
             // Calculer le rabais et le prix réduit pour chaque chaussure
             $rabais = Rabais::where('id_chaussure', $chaussure->id_chaussure)->where('expiration_rabais', '>', now())->first();
+
 
             $pourcentage = null;
             $prix = $chaussure->prix;
@@ -101,13 +135,67 @@ class ChaussuresController extends Controller
             $chaussure->prix = $prix;
         }
 
+        // Trier les chaussures par prix les plus bas
+        $chaussures = $chaussures->sortBy('prix');
+
+        // Prendre les 9 premières chaussures
+        $chaussures = $chaussures->take(9);
+
         //pour afficher la page de création de chaussure avec listtypechaussures pour attribuer la type à la chaussure
         $listTypeChaussures = listTypeChaussures::all();
-        return view('affiche-rabais', [
+
+        return view('priximbatables', [
             'chaussures' => $chaussures,
             'listTypeChaussures' => $listTypeChaussures,
         ]);
     }
+
+    public function pairesexeptionels()
+    {
+
+        //pour affiches toutes les paires avec des prix bas avec la banière prix imbatables en page d'accueil
+        $chaussures = Chaussure::all();
+
+
+        //ici une foreach pour afficher l'image de chaque chaussure qui est dans la liste à la vue
+        foreach ($chaussures as $chaussure) {
+            $images = ImageChaussure::where('id_chaussure', $chaussure->id_chaussure)->get();
+            $chaussure->image = $images->first();
+
+            // Calculer le rabais et le prix réduit pour chaque chaussure
+            $rabais = Rabais::where('id_chaussure', $chaussure->id_chaussure)->where('expiration_rabais', '>', now())->first();
+
+
+            $pourcentage = null;
+            $prix = $chaussure->prix;
+
+            if ($rabais) {
+                $pourcentage = $rabais->rabais;
+                $prixReduit = $prix - ($prix * $rabais->rabais / 100);
+                $prix = $prixReduit;
+            }
+
+            // Assigner les valeurs correspondantes à chaque chaussure
+            $chaussure->pourcentage = $pourcentage;
+            $chaussure->prix = $prix;
+        }
+
+        // Trier les chaussures par prix réduit en ordre décroissant
+        $chaussures = $chaussures->sortByDesc('prix');
+
+        // Prendre les 9 premières chaussures
+        $chaussures = $chaussures->take(9);
+
+        //pour afficher la page de création de chaussure avec listtypechaussures pour attribuer la type à la chaussure
+        $listTypeChaussures = listTypeChaussures::all();
+
+        return view('pairesexeptionels', [
+            'chaussures' => $chaussures,
+            'listTypeChaussures' => $listTypeChaussures,
+        ]);
+    }
+
+
 
 
     public function show(Request $request)

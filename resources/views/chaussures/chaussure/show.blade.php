@@ -4,7 +4,7 @@
     <div style='background-color:rgba(0, 0, 0, 0)'>
         <div class="container px-5 py-24 mx-auto" style="cursor: auto;">
             <div class="lg:w-4/5 mx-auto flex flex-wrap">
-                <div class="w-full h-auto bg-gray-400 lg:w-5/12 bg-cover rounded-l-lg flex lg:block">
+                <div class="w-full h-auto lg:w-4/12 bg-cover rounded-l-lg flex lg:block">
                     @if ($chaussure->image)
                         <img src="{{ asset('storage/images/' . $chaussure->image->image_chaussure) }}"
                             class="object-cover w-full h-full" alt="Image chaussure">
@@ -182,7 +182,7 @@
                             </div>
                     </form>
                 </div>
-                <div class="col-span-1 hidden lg:block">
+                {{-- <div class="col-span-1 hidden lg:block">
                     <div class="full-grid ">
                         <div class="ml-8">
                             <div class=" max-w-xl mx-auto 0">
@@ -210,62 +210,63 @@
                         </div>
 
                     </div>
-                </div>
-                <div class="lg:w-1/1 mx-auto flex flex-wrap w-full px-3">
-                    @if (Auth::check())
-                        <form action="{{ route('avisuser', ['id' => $chaussure->id_chaussure]) }}" method="get">
-                            @csrf
-                            <div class="mx-auto w-full mt-16 bg-white rounded-lg shadow-lg">
-                                <div class="p-8">
-                                    <h2 class="text-lg font-medium text-gray-900">Feedback</h2>
-                                    <p class="mb-5 leading-relaxed text-gray-600">Nous voulons votre avis !!! Faites nous savoir ce que vous pensez de cet article</p>
-                                    <div class="mb-4">
-                                        <div class="flex items-center">
-                                            <div class="flex">
-                                                <label for="rating" class="mr-4 py-1">Note:</label>
-                                                <div class="rating" style="font-size: 20px; height:30px;">
-                                                    <span class="star" data-value="1"></span>
-                                                    <span class="star" data-value="2"></span>
-                                                    <span class="star" data-value="3"></span>
-                                                    <span class="star" data-value="4"></span>
-                                                    <span class="star" data-value="5"></span>
-                                                </div>
-                                                <input name="rating" id="rating" value="" class="sr-only" required>
+                </div> --}}
+
+
+
+            </div>
+            <div class="lg:w-1/1  w-full ">
+                @if (Auth::check())
+                    <form action="{{ route('avisuser', ['id' => $chaussure->id_chaussure]) }}" method="get">
+                        @csrf
+                        <div class="mx-auto w-full mt-16 bg-gray-50 rounded-lg shadow-lg">
+                            <div class="p-8">
+                                <h2 class="text-lg font-medium text-gray-900">Feedback</h2>
+                                <p class="mb-5 leading-relaxed text-gray-600">Nous voulons votre avis !!! Faites nous savoir ce que vous pensez de cet article</p>
+                                <div class="mb-4">
+                                    <div class="flex items-center">
+                                        <div class="flex">
+                                            <label for="rating" class="mr-4 py-1">Note:</label>
+                                            <div class="rating" style="font-size: 20px; height:30px;">
+                                                <span class="star" data-value="1"></span>
+                                                <span class="star" data-value="2"></span>
+                                                <span class="star" data-value="3"></span>
+                                                <span class="star" data-value="4"></span>
+                                                <span class="star" data-value="5"></span>
                                             </div>
+                                            <input name="rating" id="rating" value="" class="sr-only" required>
                                         </div>
                                     </div>
-                                    <div class="mb-4">
-                                        <label for="message" class="text-sm leading-7 text-gray-600 required">Message</label>
-                                        <textarea id="message" name="message" class="w-full px-4 py-2 mt-2 text-base text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 @error('message') border-red-500 @enderror" required maxlength="100"></textarea>
-                                    </div>
-                                    <div class="mb-4">
-                                        <x-input-label for="captcha" :value="__('Captcha')" />
-                                        <div class="captcha flex items-center">
-                                            <span>{!! captcha_img() !!}</span>
-                                        </div>
-                                    </div>
-                                    <div class="mb-4">
-                                        <x-input-label for="captcha_input" :value="__('Captcha Input')" />
-                                        <x-text-input id="captcha_input" class="block mt-1 w-full border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500" type="text" name="captcha" required />
-                                        <x-input-error :messages="$errors->get('captcha')" class="mt-2" />
-                                    </div>
-                                    <button class="block w-full py-2 px-4 text-lg text-white bg-indigo-500 hover:bg-indigo-600 rounded-lg focus:outline-none focus:bg-indigo-600" type="submit">Poster</button>
-                                    <p class="mt-3 text-xs text-gray-500">N'hésitez pas à nous contacter sur nos réseaux.</p>
                                 </div>
+                                <div class="mb-4">
+                                    <label for="message" class="text-sm leading-7 text-gray-600 required">Message</label>
+                                    <textarea id="message" name="message" class="w-full px-4 py-2 mt-2 text-base text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 @error('message') border-red-500 @enderror" required maxlength="100"></textarea>
+                                </div>
+                                <div class="mb-4">
+                                    <x-input-label for="captcha" :value="__('Captcha')" />
+                                    <div class="captcha flex items-center">
+                                        <span>{!! captcha_img() !!}</span>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <x-input-label for="captcha_input" :value="__('Captcha Input')" />
+                                    <x-text-input id="captcha_input" class="block mt-1 w-full border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500" type="text" name="captcha" required />
+                                    <x-input-error :messages="$errors->get('captcha')" class="mt-2" />
+                                </div>
+                                <button class="block w-full py-2 px-4 text-lg text-white bg-indigo-500 hover:bg-indigo-600 rounded-lg focus:outline-none focus:bg-indigo-600" type="submit">Poster</button>
+                                <p class="mt-3 text-xs text-gray-500">N'hésitez pas à nous contacter sur nos réseaux.</p>
                             </div>
-                        </form>
-                    @else
-                        <div class="max-w-xl mx-auto mt-16 flex w-full flex-col rounded-lg bg-white p-8">
-                            <p>Vous devez être connecté pour poster un avis. Connectez-vous !!! </p>
-                            <form action="{{ route('login') }}">
-                                <button type="submit" class="rounded border-0 bg-indigo-500 py-2 px-6 text-lg text-white hover:bg-indigo-600 focus:outline-none justify-center">Se connecter</button>
-                            </form>
-                            <p class="mt-3 text-xs text-gray-500"></p>
                         </div>
-                    @endif
-                </div>
-
-
+                    </form>
+                @else
+                    <div class="max-w-xl mx-auto mt-16 flex w-full flex-col rounded-lg bg-white p-8">
+                        <p>Vous devez être connecté pour poster un avis. Connectez-vous !!! </p>
+                        <form action="{{ route('login') }}">
+                            <button type="submit" class="rounded border-0 bg-indigo-500 py-2 px-6 text-lg text-white hover:bg-indigo-600 focus:outline-none justify-center">Se connecter</button>
+                        </form>
+                        <p class="mt-3 text-xs text-gray-500"></p>
+                    </div>
+                @endif
             </div>
 
         </div>

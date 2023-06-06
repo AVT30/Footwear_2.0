@@ -23,7 +23,7 @@ class CommandeController extends Controller
 {
     public function commandes()
     {
-       // Récupère l'utilisateur connecté
+        // Récupère l'utilisateur connecté
         $user = Auth::user();
 
         // Régroupe chaque commande par son numéro de commande
@@ -70,29 +70,53 @@ class CommandeController extends Controller
         ]);
     }
 
+    public function gerercommande()
+    {
+        $commandes = Commande::all();
+
+        $commandesPerPage = 5; // Nombre d'utilisateurs par page
+
+        $commandes = Commande::paginate($commandesPerPage); //pour l'affichage limité d'utilisateur de 5 par tableau
+
+
+        return view('gerercommande', [
+            'commandes' => $commandes,
+        ]);
+    }
+
+    //on change le statu de la commande
+    public function update(Request $request, $id)
+    {
+        $commande = Commande::findOrFail($id);
+        $commande->status = $request->input('status');
+        $commande->save();
+
+        return redirect()->back()->with('success', 'Statut de la commande mis à jour avec succès !');
+    }
+
     //fonction qui servira a la création du pdf de la commande
     public function genererPDF($numeroCommande)
-{
-    // Récupérer la liste des commandes avec le numéro de commande donné
-    $commandes = Commande::where('numero_commande', $numeroCommande)->get();
+    {
+        // Récupérer la liste des commandes avec le numéro de commande donné
+        $commandes = Commande::where('numero_commande', $numeroCommande)->get();
 
-    // Récupérer l'adresse et l'utilisateur associés à la première commande car toutes les commandes de la liste ont en commun la meme adresse et utilisateur
-    $premiereCommande = $commandes->first();
-    $adresse = Adresse::find($premiereCommande->id_adresse);
-    $utilisateur = User::find($premiereCommande->id_utilisateur);
-    $datecommande = $premiereCommande->created_at;
+        // Récupérer l'adresse et l'utilisateur associés à la première commande car toutes les commandes de la liste ont en commun la meme adresse et utilisateur
+        $premiereCommande = $commandes->first();
+        $adresse = Adresse::find($premiereCommande->id_adresse);
+        $utilisateur = User::find($premiereCommande->id_utilisateur);
+        $datecommande = $premiereCommande->created_at;
 
-    $montant = $commandes->sum('montant');
+        $montant = $commandes->sum('montant');
 
 
-    // Contenu du PDF qu'on peut modifier dans pdf.blade.php
-    $contenu = view('pdf', compact('commandes', 'adresse', 'utilisateur', 'montant','numeroCommande','datecommande'))->render();
+        // Contenu du PDF qu'on peut modifier dans pdf.blade.php
+        $contenu = view('pdf', compact('commandes', 'adresse', 'utilisateur', 'montant', 'numeroCommande', 'datecommande'))->render();
 
-    // La vue PDF blade sera reconvertie en PDF
-    $pdf = PDF::loadHtml($contenu);
+        // La vue PDF blade sera reconvertie en PDF
+        $pdf = PDF::loadHtml($contenu);
 
-    return $pdf->stream('commande_' . $numeroCommande . '.pdf');
-}
+        return $pdf->stream('commande_' . $numeroCommande . '.pdf');
+    }
 
 
 }

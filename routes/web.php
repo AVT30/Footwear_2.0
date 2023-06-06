@@ -5,16 +5,13 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ChaussuresController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\WhislistController;
-use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AvisController;
 use App\Http\Controllers\AdresseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\GererUserController;
-use App\Http\Controllers\GererAvisController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CommandeController;
-use App\Http\Controllers\GerercommandeController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -145,22 +142,22 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::put('/gereruser/{id}', [GererUserController::class, 'update'])->name('gereruser.update');
 
     //gérér avis
-    Route::get('/gereravis', [GererAvisController::class, 'avis'])->name('gereravis');
+    Route::get('/gereravis', [AvisController::class, 'avis'])->name('gereravis');
 
 
     //gérér avis
-    Route::get('/gerercommande', [GerercommandeController::class, 'gerercommande'])->name('gerercommande');
+    Route::get('/gerercommande', [CommandeController::class, 'gerercommande'])->name('gerercommande');
 
     // Logique pour gérer le statut de la commande
-    Route::put('/gerercommande/{id}', [GerercommandeController::class, 'update'])->name('commande.update');
+    Route::put('/gerercommande/{id}', [CommandeController::class, 'update'])->name('commande.update');
 
     //gerer l'activation et désactivation des comptes users
     Route::put('/gerer-users/activer/{id}', [GererUserController::class, 'activer'])->name('gerer-users.activer');
     Route::put('/gerer-users/desactiver/{id}', [GererUserController::class, 'desactiver'])->name('gerer-users.desactiver');
 
     //gerer l'activation et désactivation des avis
-    Route::post('avis/{id}/accepter', [GererAvisController::class, 'accepterAvis'])->name('avis.accepter');
-    Route::delete('avis/{id}/supprimer', [GererAvisController::class, 'supprimerAvis'])->name('avis.supprimer');
+    Route::post('avis/{id}/accepter', [AvisController::class, 'accepterAvis'])->name('avis.accepter');
+    Route::delete('avis/{id}/supprimer', [AvisController::class, 'supprimerAvis'])->name('avis.supprimer');
 
 
 

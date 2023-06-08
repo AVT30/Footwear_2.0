@@ -107,7 +107,7 @@ class StripeController extends Controller
                 DB::table('commandes')->insert([
                     'id_utilisateur' => Auth::id(),
                     'id_stock' => $id_stock,
-                    'montant' => $totalpanier,
+                    'montant' => $prixrabais,
                     'id_adresse' => $id_adresse,
                     'id_chaussure' => $id_chaussure,
                     'numero_commande' => $numeroCommande,

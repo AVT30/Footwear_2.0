@@ -36,7 +36,7 @@ class PanierController extends Controller
                 ->withInput();
         }
 
-        // If the validation passes, add the item to the cart
+        // on ajoute des items dans la card on trouvant la chaussure
         $chaussure = Chaussure::find($id_chaussure);
 
         //ici une foreach pour afficher l'image de chaque chaussure qui est dans la liste à la vue

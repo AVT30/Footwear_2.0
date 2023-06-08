@@ -26,13 +26,8 @@ class CommandeController extends Controller
         // Récupère l'utilisateur connecté
         $user = Auth::user();
 
-        // Régroupe chaque commande par son numéro de commande
-        $chaussuresParCommande = $user->commandes()->with('stock.chaussure')->get()->groupBy('numero_commande');
-
-        $user = Auth::user();
-
-        // Régroupe chaque commande par son numéro de commande
-        $chaussuresParCommande = $user->commandes()->get()->groupBy('numero_commande');
+        // Régroupe chaque commande par son numéro de commande (on fait un desc pour afficher les dernières commandes faites par l'utilisateur)
+        $chaussuresParCommande = $user->commandes()->with('stock.chaussure')->orderBy('created_at', 'desc')->get()->groupBy('numero_commande');
 
         foreach ($chaussuresParCommande as $numeroCommande => $commandes) {
             foreach ($commandes as $commande) {

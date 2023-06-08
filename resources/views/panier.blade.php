@@ -40,21 +40,9 @@
                                         <div
                                             class="mt-4 flex justify-between im sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                                             <div class="flex items-center border-gray-100">
-                                                <button type="button"
-                                                    class="w-8 h-8 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 mr-2"
-                                                    onclick="if (parseInt(this.nextElementSibling.value) > 1) {this.nextElementSibling.value = parseInt(this.nextElementSibling.value) - 1}">
-                                                    <span class="sr-only">Decrease Value</span>
-                                                    <span class="text-lg font-bold leading-none">−</span>
-                                                </button>
                                                 <input type="number" name="quantity" id="quantity"
                                                     class="w-16 h-8 text-center text-gray-700 font-semibold rounded-lg border border-gray-300 focus:outline-none focus:border-indigo-500"
-                                                    value="{{ $item->quantity }}" min="1">
-                                                <button type="button"
-                                                    class="w-8 h-8 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 ml-2"
-                                                    onclick="this.previousElementSibling.value = parseInt(this.previousElementSibling.value) + 1">
-                                                    <span class="sr-only">Increase Value</span>
-                                                    <span class="text-lg font-bold leading-none">+</span>
-                                                </button>
+                                                    value="{{ $item->quantity }}" min="1" readonly>
                                             </div>
                                             <div class="flex justify-end">
                                                 <a href="{{ route('supprimerArticle', ['id' => $item->id]) }}">
